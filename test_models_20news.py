@@ -25,13 +25,13 @@ def run_20_news(model_id,percentage_supervision,nbits_for_hashing,alpha_val,gamm
 	data = Load_Dataset(filename)
 	X_train_input = data["train"]
 	X_train = X_train_input
-	print(X_train)
+	X_train = X_train[:50,0:-1]
 	X_val_input = data["cv"]
 	X_val = X_val_input
-	print(X_val)
+	X_val = X_val[:50,0:-1]
 	X_test_input = data["test"]
 	X_test = X_test_input
-	print(X_test)
+	X_test = X_test[:50,0:-1]
 	labels_train = np.asarray([labels[value.argmax(axis=-1)] for value in data["gnd_train"]])
 	labels_val = np.asarray([labels[value.argmax(axis=-1)] for value in data["gnd_cv"]])
 	labels_test = np.asarray([labels[value.argmax(axis=-1)] for value in data["gnd_test"]])
