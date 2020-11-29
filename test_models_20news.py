@@ -23,7 +23,6 @@ def run_20_news(model_id,percentage_supervision,nbits_for_hashing,alpha_val,gamm
 
 	filename = 'Data/ng20.tfidf.mat'
 	data = Load_Dataset(filename)
-	print(data)
 
 	data['n_trains'] = 1000
 	data['n_tests'] = 500
