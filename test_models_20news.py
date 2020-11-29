@@ -23,15 +23,16 @@ def run_20_news(model_id,percentage_supervision,nbits_for_hashing,alpha_val,gamm
 
 	filename = 'Data/ng20.tfidf.mat'
 	data = Load_Dataset(filename)
+	print(data.head())
 	X_train_input = data["train"]
 	X_train = X_train_input
-	X_train = X_train[:50,0:-1]
+	X_train = X_train
 	X_val_input = data["cv"]
 	X_val = X_val_input
-	X_val = X_val[:50,0:-1]
+	X_val = X_val
 	X_test_input = data["test"]
 	X_test = X_test_input
-	X_test = X_test[:50,0:-1]
+	X_test = X_test
 	labels_train = np.asarray([labels[value.argmax(axis=-1)] for value in data["gnd_train"]])
 	labels_val = np.asarray([labels[value.argmax(axis=-1)] for value in data["gnd_cv"]])
 	labels_test = np.asarray([labels[value.argmax(axis=-1)] for value in data["gnd_test"]])
@@ -56,9 +57,9 @@ def run_20_news(model_id,percentage_supervision,nbits_for_hashing,alpha_val,gamm
 
 	n_classes = len(labels)
 
-	y_train = label_encoder.transform(labels_train)[:50,0:-1]
-	y_val = label_encoder.transform(labels_val)[:50,0:-1]
-	y_test = label_encoder.transform(labels_test)[:50,0:-1]
+	y_train = label_encoder.transform(labels_train)
+	y_val = label_encoder.transform(labels_val)
+	y_test = label_encoder.transform(labels_test)
 
 	y_train_input = to_categorical(y_train,num_classes=n_classes)
 	y_val_input = to_categorical(y_val,num_classes=n_classes)
