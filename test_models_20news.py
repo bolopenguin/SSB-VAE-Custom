@@ -24,6 +24,19 @@ def run_20_news(model_id,percentage_supervision,nbits_for_hashing,alpha_val,gamm
 	filename = 'Data/ng20.tfidf.mat'
 	data = Load_Dataset(filename)
 	print(data)
+
+	data['n_trains'] = 1000
+	data['n_tests'] = 500
+	data['n_cv'] = 500
+
+	data['train'] = data['train'][:1000, :]
+	data['test'] = data['test'][:500,:]
+	data['cv'] = data['cv'][:500,:]
+
+	data["gnd_train"] = data["gnd_train"][:1000, :]
+	data["gnd_cv"] = data["gnd_cv"][:500, :]
+	data["gnd_test"] = data["gnd_test"][:500, :]
+
 	X_train_input = data["train"]
 	X_train = X_train_input
 	X_train = X_train
