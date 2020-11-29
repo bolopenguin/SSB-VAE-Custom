@@ -179,7 +179,7 @@ ps = float(opts.ps)
 nbits = int(opts.length_codes)
 
 seeds_to_reseed = [20,144,1028,2044,101,6077,621,1981,2806,79]
-
+tf.config.experimental_run_functions_eagerly(True)
 for rep in range(opts.repetitions):
 	if opts.reseed > 0:
 		new_seed = seeds_to_reseed[rep%len(seeds_to_reseed)]
