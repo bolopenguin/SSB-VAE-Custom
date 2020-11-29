@@ -56,9 +56,9 @@ def run_20_news(model_id,percentage_supervision,nbits_for_hashing,alpha_val,gamm
 
 	n_classes = len(labels)
 
-	y_train = label_encoder.transform(labels_train)
-	y_val = label_encoder.transform(labels_val)
-	y_test = label_encoder.transform(labels_test)
+	y_train = label_encoder.transform(labels_train)[:50,0:-1]
+	y_val = label_encoder.transform(labels_val)[:50,0:-1]
+	y_test = label_encoder.transform(labels_test)[:50,0:-1]
 
 	y_train_input = to_categorical(y_train,num_classes=n_classes)
 	y_val_input = to_categorical(y_val,num_classes=n_classes)
