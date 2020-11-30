@@ -24,17 +24,6 @@ def run_20_news(model_id,percentage_supervision,nbits_for_hashing,alpha_val,gamm
 	filename = 'Data/ng20.tfidf.mat'
 	data = Load_Dataset(filename)
 
-	data['n_trains'] = 1000
-	data['n_tests'] = 500
-	data['n_cv'] = 500
-
-	data['train'] = data['train'][:1000, :]
-	data['test'] = data['test'][:500,:]
-	data['cv'] = data['cv'][:500,:]
-
-	data["gnd_train"] = data["gnd_train"][:1000, :]
-	data["gnd_cv"] = data["gnd_cv"][:500, :]
-	data["gnd_test"] = data["gnd_test"][:500, :]
 
 	X_train_input = data["train"]
 	X_train = X_train_input
@@ -45,12 +34,13 @@ def run_20_news(model_id,percentage_supervision,nbits_for_hashing,alpha_val,gamm
 	X_test_input = data["test"]
 	X_test = X_test_input
 	X_test = X_test
+	# usare float 32
 	labels_train = np.asarray([labels[value.argmax(axis=-1)] for value in data["gnd_train"]])
 	labels_val = np.asarray([labels[value.argmax(axis=-1)] for value in data["gnd_cv"]])
 	labels_test = np.asarray([labels[value.argmax(axis=-1)] for value in data["gnd_test"]])
 
 
-	#Outputs as probabolities 
+	#Outputs as probabilities
 	X_train = X_train/X_train.sum(axis=-1,keepdims=True) 
 	X_val = X_val/X_val.sum(axis=-1,keepdims=True)
 	X_test = X_test/X_test.sum(axis=-1,keepdims=True)
