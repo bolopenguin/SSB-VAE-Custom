@@ -24,17 +24,20 @@ def run_20_news(model_id,percentage_supervision,nbits_for_hashing,alpha_val,gamm
 	filename = 'Data/ng20.tfidf.mat'
 	data = Load_Dataset(filename)
 
+	data['train'] = np.float32(data['train'])
+	data['test'] = np.float32(data['test'])
+	data['cv'] = np.float32(data['cv'])
+	data['gnd_train'] = np.float32(data['gnd_train'])
+	data['gnd_test'] = np.float32(data['gnd_test'])
+	data['gnd_cv'] = np.float32(data['gnd_cv'])
+
 
 	X_train_input = data["train"]
 	X_train = X_train_input
-	X_train = X_train
 	X_val_input = data["cv"]
 	X_val = X_val_input
-	X_val = X_val
 	X_test_input = data["test"]
 	X_test = X_test_input
-	X_test = X_test
-	# usare float 32
 	labels_train = np.asarray([labels[value.argmax(axis=-1)] for value in data["gnd_train"]])
 	labels_val = np.asarray([labels[value.argmax(axis=-1)] for value in data["gnd_cv"]])
 	labels_test = np.asarray([labels[value.argmax(axis=-1)] for value in data["gnd_test"]])
@@ -165,6 +168,7 @@ def run_20_news(model_id,percentage_supervision,nbits_for_hashing,alpha_val,gamm
 	print("DONE ...")
 
 import sys
+import numpy as np
 from optparse import OptionParser
 
 op = OptionParser()
@@ -181,7 +185,10 @@ op.add_option("-l", "--length_codes", type=int, default=32, help="number of bits
 
 (opts, args) = op.parse_args()
 
-ps = float(opts.ps)
+ps = np.float32(opts.ps)
+a = np.float32(opts.alpha)
+b = np.float32(opts.beta)
+g = np.float32(opts.gamma)
 nbits = int(opts.length_codes)
 
 seeds_to_reseed = [20,144,1028,2044,101,6077,621,1981,2806,79]
@@ -189,7 +196,8 @@ tf.config.experimental_run_functions_eagerly(True)
 for rep in range(opts.repetitions):
 	if opts.reseed > 0:
 		new_seed = seeds_to_reseed[rep%len(seeds_to_reseed)]
-		run_20_news(opts.model,percentage_supervision=ps,nbits_for_hashing=nbits,alpha_val=opts.alpha,gamma_val=opts.gamma,beta_VAL=opts.beta,name_file=opts.ofilename,addval=opts.addvalidation,reseed=opts.reseed,seed_to_reseed=new_seed)
+		run_20_news(opts.model,percentage_supervision=ps,nbits_for_hashing=nbits,alpha_val=a,gamma_val=g,beta_VAL=b,name_file=opts.ofilename,addval=opts.addvalidation,reseed=opts.reseed,seed_to_reseed=new_seed)
 	else:
-		run_20_news(opts.model,percentage_supervision=ps,nbits_for_hashing=nbits,alpha_val=opts.alpha,gamma_val=opts.gamma,beta_VAL=opts.beta,name_file=opts.ofilename,addval=opts.addvalidation,reseed=opts.reseed,seed_to_reseed=20)
+		run_20_news(opts.model,percentage_supervision=ps,nbits_for_hashing=nbits,alpha_val=a,gamma_val=g,beta_VAL=b,name_file=opts.ofilename,addval=opts.addvalidation,reseed=opts.reseed,seed_to_reseed=20)
+
 
