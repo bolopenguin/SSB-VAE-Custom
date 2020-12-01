@@ -310,8 +310,7 @@ def SSBVAE(data_dim,n_classes,Nb,units,layers_e,layers_d,opt='adam',BN=True, sum
     #binary_vae.compile(optimizer=opt, loss=SUP_BAE_loss_pointwise, metrics=[Recon_loss,kl_loss])
 
     binary_vae = Model(inputs=x, outputs=[output,supervised_layer])
-    binary_vae.compile(optimizer=opt, loss=[SUP_BAE_loss_pointwise,Hamming_loss],loss_weights=[1., alpha], metrics=[Recon_loss,kl_loss,pred_loss]
-                       , run_eagerly = True)
+    binary_vae.compile(optimizer=opt, loss=[SUP_BAE_loss_pointwise,Hamming_loss],loss_weights=[1., alpha], metrics=[Recon_loss,kl_loss,pred_loss])
 
     if tau_ann:
         return binary_vae, encoder,generator ,tau
