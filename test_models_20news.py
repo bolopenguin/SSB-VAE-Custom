@@ -108,7 +108,7 @@ def run_20_news(model_id,percentage_supervision,nbits_for_hashing,alpha_val,gamm
 	
 	#Creating and Training the Models
 
-	batch_size = 100
+	batch_size = 64
 
 	tf.keras.backend.clear_session()
 
