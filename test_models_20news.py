@@ -24,6 +24,7 @@ def run_20_news(model_id,percentage_supervision,nbits_for_hashing,alpha_val,gamm
 	filename = 'Data/ng20.tfidf.mat'
 	data = Load_Dataset(filename)
 
+	################
 	data['train'] = np.float32(data['train'])
 	data['test'] = np.float32(data['test'])
 	data['cv'] = np.float32(data['cv'])
@@ -108,7 +109,7 @@ def run_20_news(model_id,percentage_supervision,nbits_for_hashing,alpha_val,gamm
 	
 	#Creating and Training the Models
 
-	batch_size = 1000
+	batch_size = 16
 
 	tf.keras.backend.clear_session()
 
@@ -129,6 +130,7 @@ def run_20_news(model_id,percentage_supervision,nbits_for_hashing,alpha_val,gamm
 	elif model_id == 3:
 
 		vae,encoder,generator = SSBVAE(X_train.shape[1],n_classes,Nb=int(nbits_for_hashing),units=500,layers_e=2,layers_d=0,beta=beta_VAL,alpha=alpha_val,gamma=gamma_val)
+		#########
 		vae.fit(np.float32(X_total_input), [np.float32(X_total), np.float32(Y_total_input)], epochs=30, batch_size=batch_size,verbose=1)
 		name_model = 'SSB_VAE'
 
@@ -192,7 +194,7 @@ g = np.float32(opts.gamma)
 nbits = int(opts.length_codes)
 
 seeds_to_reseed = [20,144,1028,2044,101,6077,621,1981,2806,79]
-tf.config.experimental_run_functions_eagerly(True)
+
 for rep in range(opts.repetitions):
 	if opts.reseed > 0:
 		new_seed = seeds_to_reseed[rep%len(seeds_to_reseed)]
