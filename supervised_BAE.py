@@ -165,7 +165,7 @@ def binary_VAE(data_dim,Nb,units,layers_e,layers_d,opt='adam',BN=True, summ=True
         return binary_vae, encoder,generator
 
 
-def PSH_GS(data_dim,n_classes,Nb,units,layers_e,layers_d,opt='adam',BN=True, summ=True,tau_ann=False,beta=0,alpha=1.0,gamma=1.0,multilabel=False):
+def PSH_GS(data_dim,n_classes,Nb,units,layers_e,layers_d,opt='adam',BN=True, summ=True,tau_ann=False,beta=0,alpha=1.0,lambda_=1.0,multilabel=False):
     if tau_ann:
         tau = K.variable(1.0, name="temperature") 
     else:
@@ -228,7 +228,7 @@ def PSH_GS(data_dim,n_classes,Nb,units,layers_e,layers_d,opt='adam',BN=True, sum
         similar_mask = K.dot(y_true, K.transpose(y_true)) #BXB  M_ij = I(y_i = y_j)  
         loss_hamming = (1.0/Nb)*K.sum(similar_mask*D + (1.0-similar_mask)*K.relu(margin-D))
 
-        return gamma*pred_loss(y_true, y_pred) + loss_hamming
+        return lambda_*pred_loss(y_true, y_pred) + loss_hamming
 
     #binary_vae = Model(inputs=[x,y], outputs=output)
     #binary_vae.compile(optimizer=opt, loss=SUP_BAE_loss_pointwise, metrics=[Recon_loss,kl_loss])
@@ -241,7 +241,10 @@ def PSH_GS(data_dim,n_classes,Nb,units,layers_e,layers_d,opt='adam',BN=True, sum
     else:
         return binary_vae, encoder,generator
 
-def SSBVAE(data_dim,n_classes,Nb,units,layers_e,layers_d,opt='adam',BN=True, summ=True,tau_ann=False,beta=0,alpha=1.0,gamma=1.0,multilabel=False):
+#MODIFICA ESEGUITA
+#Vecchia versione: def SSBVAE(data_dim,n_classes,Nb,units,layers_e,layers_d,opt='adam',BN=True, summ=True,tau_ann=False,beta=0,alpha=1.0,gamma=1.0,multilabel=False):
+#Sostituisci beta con lambda_ , e gamma con beta
+def SSBVAE(data_dim,n_classes,Nb,units,layers_e,layers_d,opt='adam',BN=True, summ=True,tau_ann=False,lambda_=0,alpha=1.0,beta=1.0,multilabel=False):
     if tau_ann:
         tau = K.variable(1.0, name="temperature") 
     else:
@@ -285,7 +288,11 @@ def SSBVAE(data_dim,n_classes,Nb,units,layers_e,layers_d,opt='adam',BN=True, sum
     def SUP_BAE_loss_pointwise(y_true, y_pred):
         #supervised_loss = keras.losses.categorical_crossentropy(y, supervised_layer)#req y 
         #return alpha*supervised_loss + Recon_loss(y_true, y_pred) + beta*kl_loss(y_true, y_pred)
-        return Recon_loss(y_true, y_pred) + beta*kl_loss(y_true, y_pred)
+        
+        #MODIFICA ESEGUITA
+        #Vecchia versione: return Recon_loss(y_true, y_pred) + beta*kl_loss(y_true, y_pred)
+        #Sostituisci beta con lambda_ 
+        return Recon_loss(y_true, y_pred) + lambda_*kl_loss(y_true, y_pred)
 
     margin = Nb/3.0
 
@@ -304,14 +311,24 @@ def SSBVAE(data_dim,n_classes,Nb,units,layers_e,layers_d,opt='adam',BN=True, sum
         similar_mask = K.dot(y_pred, K.transpose(y_pred)) #BXB  M_ij = I(y_i = y_j)  
         loss_hamming = (1.0/Nb)*K.sum(similar_mask*D + (1.0-similar_mask)*K.relu(margin-D))
 
-        return gamma*pred_loss(y_true, y_pred) + loss_hamming
+        #MODIFICA ESEGUITA
+        #Vecchia versione: return gamma*pred_loss(y_true, y_pred) + loss_hamming
+        #Sostituisci gamma con beta ed aggiungi un *alpha alla loss_hamming 
+        return beta*pred_loss(y_true, y_pred) + alpha*loss_hamming
+
+        #Commento sulla return di riga 317
+        #loss_hamming = penalizza se due dati con la label diversa vengono imbucati insieme o se due dati con label uguali vengono imbucati diversamente
+        #y_pred = topic dei dati, spiega che cose con lo stesso label andrebbero imbucate insieme, è la parte supervisionata
 
     #binary_vae = Model(inputs=[x,y], outputs=output)
     #binary_vae.compile(optimizer=opt, loss=SUP_BAE_loss_pointwise, metrics=[Recon_loss,kl_loss])
 
     binary_vae = Model(inputs=x, outputs=[output,supervised_layer])
-    binary_vae.compile(optimizer=opt, loss=[SUP_BAE_loss_pointwise,Hamming_loss],loss_weights=[1., alpha], metrics=[Recon_loss,kl_loss,pred_loss])
-
+    
+    #MODIFICA ESEGUITA
+    #Vecchia versione: binary_vae.compile(optimizer=opt, loss=[SUP_BAE_loss_pointwise,Hamming_loss],loss_weights=[1., alpha], metrics=[Recon_loss,kl_loss,pred_loss])
+    #Sostituisci alpha con un 1.
+    binary_vae.compile(optimizer=opt, loss=[SUP_BAE_loss_pointwise,Hamming_loss],loss_weights=[1., 1.], metrics=[Recon_loss,kl_loss,pred_loss])
     if tau_ann:
         return binary_vae, encoder,generator ,tau
     else:
