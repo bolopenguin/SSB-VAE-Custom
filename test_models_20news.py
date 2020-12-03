@@ -179,7 +179,7 @@ op.add_option("-b", "--beta", type=float, default=0.015625, help="beta value")
 #MODIFICA ESEGUITA
 #Vecchia versione: op.add_option("-g", "--gamma", type=float, default=0.0, help="gamma value")
 #Sostituisci gamma con lambda , e --gamma con --lambda  e -g con -l
-op.add_option("-l", "--lambda", type=float, default=0.0, help="lambda value")
+op.add_option("-l", "--lambda_", type=float, default=0.0, help="lambda value")
 op.add_option("-r", "--repetitions", type=int, default=1, help="repetitions") 
 op.add_option("-o", "--ofilename", type="string", default="results.csv", help="output filename") 
 op.add_option("-s", "--reseed", type=int, default=0, help="if >0 reseed numpy for each repetition") 

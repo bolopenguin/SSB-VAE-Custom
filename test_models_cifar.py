@@ -129,7 +129,7 @@ def run_CIFAR(model_id,percentage_supervision,nbits_for_hashing,alpha_val,lambda
         #MODIFICA ESEGUITA
 		#Vecchia versione: vae,encoder,generator = PSH_GS(X_total.shape[1],n_classes,Nb=int(nbits_for_hashing),units=500,layers_e=2,layers_d=0,beta=beta_VAL,alpha=alpha_val,gamma=gamma_val)
 		#Sostituisci gamma con lambda_ , e gamma_val con lambda_val
-        vae,encoder,generator = PSH_GS(X_total.shape[1],n_classes,Nb=int(nbits_for_hashing),units=500,layers_e=2,layers_d=0,beta=beta_VAL,alpha=alpha_val,lambda=lambda_val)
+        vae,encoder,generator = PSH_GS(X_total.shape[1],n_classes,Nb=int(nbits_for_hashing),units=500,layers_e=2,layers_d=0,beta=beta_VAL,alpha=alpha_val,lambda_=lambda_val)
         vae.fit(X_total_input, [X_total, Y_total_input], epochs=30, batch_size=batch_size,verbose=1)
         name_model = 'PHS_GS'
 
@@ -138,7 +138,7 @@ def run_CIFAR(model_id,percentage_supervision,nbits_for_hashing,alpha_val,lambda
         #MODIFICA ESEGUITA
 		#Vecchia versione: vae,encoder,generator = SSBVAE(X_total.shape[1],n_classes,Nb=int(nbits_for_hashing),units=500,layers_e=2,layers_d=0,beta=beta_VAL,alpha=alpha_val,gamma=gamma_val)
 		#Sostituisci gamma con lambda_ , e gamma_val con lambda_val
-		vae,encoder,generator = SSBVAE(X_total.shape[1],n_classes,Nb=int(nbits_for_hashing),units=500,layers_e=2,layers_d=0,beta=beta_VAL,alpha=alpha_val,lambda_=lambda_val)
+        vae,encoder,generator = SSBVAE(X_total.shape[1],n_classes,Nb=int(nbits_for_hashing),units=500,layers_e=2,layers_d=0,beta=beta_VAL,alpha=alpha_val,lambda_=lambda_val)
         vae.fit(X_total_input, [X_total, Y_total_input], epochs=30, batch_size=batch_size,verbose=1)
         name_model = 'SSB_VAE'
 
@@ -188,7 +188,7 @@ op.add_option("-b", "--beta", type=float, default=0.003906, help="beta value")
 #MODIFICA ESEGUITA
 #Vecchia versione: op.add_option("-g", "--gamma", type=float, default=0.0, help="gamma value")
 #Sostituisci gamma con lambda , e --gamma con --lambda  e -g con -l
-op.add_option("-l", "--lambda", type=float, default=0.0, help="lambda value")
+op.add_option("-l", "--lambda_", type=float, default=0.0, help="lambda value")
 op.add_option("-r", "--repetitions", type=int, default=1, help="repetitions") 
 op.add_option("-o", "--ofilename", type="string", default="results.csv", help="output filename") 
 op.add_option("-s", "--reseed", type=int, default=0, help="if >0 reseed numpy for each repetition") 
