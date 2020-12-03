@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 measure = 'p@100'
-nbits = 32
+nbits = 16
 
 def load_data(nbits=32, folder="./", ext='.csv'):
     data = pd.DataFrame()
@@ -15,7 +15,7 @@ def load_data(nbits=32, folder="./", ext='.csv'):
                 dataset = pd.read_csv(folder + file, header=None)
                 data=pd.concat([data, dataset])
 
-    colnames=['dataset', 'algorithm', 'level', 'alpha', 'beta', 'gamma', 'p@100', 'r@100', 'p@1000', 'p@5000', 'map@100', 'map@1000', 'map@5000','added_val_flag','seed_used']
+    colnames=['dataset', 'algorithm', 'level', 'alpha', 'beta', 'lambda', 'p@100', 'r@100', 'p@1000', 'p@5000', 'map@100', 'map@1000', 'map@5000','added_val_flag','seed_used']
     data.columns = colnames
     return data
 
