@@ -108,9 +108,7 @@ def load_data(percentage_supervision,addval=1,reseed=0,seed_to_reseed=20):
 
     return n_classes, labels, labels_total, labels_test, X_total, X_test, X_total_input, X_test_input, Y_total_input
 
-#MODIFICA ESEGUITA
-#Vecchia versione: def run_CIFAR(model_id,percentage_supervision,nbits_for_hashing,alpha_val,gamma_val,beta_VAL,name_file, addval,reseed,seed_to_reseed, n_classes, labels, labels_total, labels_test, X_total, X_test, X_total_input, X_test_input, Y_total_input):
-#Sostituisci gamma_val con lambda_val
+
 def run_CIFAR(model_id,percentage_supervision,nbits_for_hashing,alpha_val,lambda_val,beta_VAL,name_file, addval,reseed,seed_to_reseed, n_classes, labels, labels_total, labels_test, X_total, X_test, X_total_input, X_test_input, Y_total_input):
  
     batch_size = 100*2
@@ -180,45 +178,35 @@ def run_CIFAR(model_id,percentage_supervision,nbits_for_hashing,alpha_val,lambda
 import sys
 from optparse import OptionParser
 
-op = OptionParser()
-op.add_option("-M", "--model", type=int, default=4, help="model type (1,2,3)")
-op.add_option("-p", "--ps", type=float, default=1.0, help="supervision level (float[0.1,1.0])")
-op.add_option("-a", "--alpha", type=float, default=0.0, help="alpha value")
-op.add_option("-b", "--beta", type=float, default=0.003906, help="beta value")
-#MODIFICA ESEGUITA
-#Vecchia versione: op.add_option("-g", "--gamma", type=float, default=0.0, help="gamma value")
-#Sostituisci gamma con lambda , e --gamma con --lambda  e -g con -l
-op.add_option("-l", "--lambda_", type=float, default=0.0, help="lambda value")
-op.add_option("-r", "--repetitions", type=int, default=1, help="repetitions") 
-op.add_option("-o", "--ofilename", type="string", default="results.csv", help="output filename") 
-op.add_option("-s", "--reseed", type=int, default=0, help="if >0 reseed numpy for each repetition") 
-op.add_option("-v", "--addvalidation", type=int, default=1, help="if >0 add the validation set to the train set") 
-#MODIFICA ESEGUITA
-#Vecchia versione: op.add_option("-l", "--length_codes", type=int, default=32, help="number of bits") 
-#Sostituisci -l con -c
-op.add_option("-c", "--length_codes", type=int, default=32, help="number of bits") 
+#op = OptionParser()
+#op.add_option("-M", "--model", type=int, default=4, help="model type (1,2,3)")
+#op.add_option("-p", "--ps", type=float, default=1.0, help="supervision level (float[0.1,1.0])")
+#op.add_option("-a", "--alpha", type=float, default=0.0, help="alpha value")
+#op.add_option("-b", "--beta", type=float, default=0.003906, help="beta value")
+#op.add_option("-l", "--lambda_", type=float, default=0.0, help="lambda value")
+#op.add_option("-r", "--repetitions", type=int, default=1, help="repetitions")
+#op.add_option("-o", "--ofilename", type="string", default="results.csv", help="output filename")
+#op.add_option("-s", "--reseed", type=int, default=0, help="if >0 reseed numpy for each repetition")
+#op.add_option("-v", "--addvalidation", type=int, default=1, help="if >0 add the validation set to the train set")
+#op.add_option("-c", "--length_codes", type=int, default=32, help="number of bits")
+
+#(opts, args) = op.parse_args()
 
 
-(opts, args) = op.parse_args()
 
-seeds_to_reseed = [20,144,1028,2044,101,6077,621,1981,2806,79]
+def testCifar(model,ps, addvalidation, alpha, beta, lambda_, repetitions, nbits,  ofilename, reseed=0):
+    seeds_to_reseed = [20, 144, 1028, 2044, 101, 6077, 621, 1981, 2806, 79]
+    nbits = int(nbits)
 
-if opts.reseed > 0:
-    for rep in range(opts.repetitions):
-        new_seed = seeds_to_reseed[rep%len(seeds_to_reseed)]
-        n_classes, labels, labels_total, labels_test, X_total, X_test, X_total_input, X_test_input, Y_total_input = load_data(opts.ps,addval=opts.addvalidation,reseed=opts.reseed,seed_to_reseed=new_seed)
-        #MODIFICA ESEGUITA
-		#Vecchia versione: run_CIFAR(opts.model,opts.ps,opts.length_codes,opts.alpha,opts.gamma,opts.beta,opts.ofilename,opts.addvalidation,opts.reseed,new_seed,n_classes, labels, labels_total, labels_test, X_total, X_test, X_total_input, X_test_input, Y_total_input)
-		#Sostituisci opts.gamma con opts.lambda_
-        run_CIFAR(opts.model,opts.ps,opts.length_codes,opts.alpha,opts.lambda_,opts.beta,opts.ofilename,opts.addvalidation,opts.reseed,new_seed,n_classes, labels, labels_total, labels_test, X_total, X_test, X_total_input, X_test_input, Y_total_input)
-        del n_classes, labels, labels_total, labels_test, X_total, X_test, X_total_input, X_test_input, Y_total_input
-        gc.collect()
-else:
-
-    n_classes, labels, labels_total, labels_test, X_total, X_test, X_total_input, X_test_input, Y_total_input = load_data(opts.ps,addval=opts.addvalidation,reseed=0,seed_to_reseed=20)
-    for rep in range(opts.repetitions):
-        #MODIFICA ESEGUITA
-		#Vecchia versione: run_CIFAR(opts.model,opts.ps,opts.length_codes,opts.alpha,opts.gamma,opts.beta,opts.ofilename,opts.addvalidation,0,20,n_classes, labels, labels_total, labels_test, X_total, X_test, X_total_input, X_test_input, Y_total_input)
-		#Sostituisci opts.gamma con opts.lambda_
-        run_CIFAR(opts.model,opts.ps,opts.length_codes,opts.alpha,opts.lambda_,opts.beta,opts.ofilename,opts.addvalidation,0,20,n_classes, labels, labels_total, labels_test, X_total, X_test, X_total_input, X_test_input, Y_total_input)
+    if reseed > 0:
+        for rep in range(repetitions):
+            new_seed = seeds_to_reseed[rep%len(seeds_to_reseed)]
+            n_classes, labels, labels_total, labels_test, X_total, X_test, X_total_input, X_test_input, Y_total_input = load_data(ps,addval=addvalidation,reseed=reseed,seed_to_reseed=new_seed)
+            run_CIFAR(model,ps,nbits,alpha,lambda_,beta,ofilename,addvalidation,reseed,new_seed,n_classes, labels, labels_total, labels_test, X_total, X_test, X_total_input, X_test_input, Y_total_input)
+            del n_classes, labels, labels_total, labels_test, X_total, X_test, X_total_input, X_test_input, Y_total_input
+            gc.collect()
+    else:
+        n_classes, labels, labels_total, labels_test, X_total, X_test, X_total_input, X_test_input, Y_total_input = load_data(ps,addval=addvalidation,reseed=0,seed_to_reseed=20)
+        for rep in range(repetitions):
+            run_CIFAR(model,ps,nbits,alpha,lambda_,beta,ofilename,addvalidation,0,20,n_classes, labels, labels_total, labels_test, X_total, X_test, X_total_input, X_test_input, Y_total_input)
 

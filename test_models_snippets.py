@@ -238,42 +238,31 @@ def run_snippets(model_id,percentage_supervision,nbits_for_hashing,alpha_val,lam
 import sys
 from optparse import OptionParser
 
-op = OptionParser()
-op.add_option("-M", "--model", type=int, default=4, help="model type (1,2,3)")
-op.add_option("-p", "--ps", type=float, default=1.0, help="supervision level (float[0.1,1.0])")
-op.add_option("-a", "--alpha", type=float, default=0.0, help="alpha value")
-op.add_option("-b", "--beta", type=float, default=0.015625, help="beta value")
-#MODIFICA ESEGUITA
-#Vecchia versione: op.add_option("-g", "--gamma", type=float, default=0.0, help="gamma value")
-#Sostituisci gamma con lambda , e --gamma con --lambda  e -g con -l
-op.add_option("-l", "--lambda_", type=float, default=0.0, help="lambda value")
-op.add_option("-r", "--repetitions", type=int, default=1, help="repetitions") 
-op.add_option("-o", "--ofilename", type="string", default="results.csv", help="output filename") 
-op.add_option("-s", "--reseed", type=int, default=0, help="if >0 reseed numpy for each repetition") 
-op.add_option("-v", "--addvalidation", type=int, default=1, help="if >0 add the validation set to the train set") 
-#MODIFICA ESEGUITA
-#Vecchia versione: op.add_option("-l", "--length_codes", type=int, default=32, help="number of bits") 
-#Sostituisci -l con -c
-op.add_option("-c", "--length_codes", type=int, default=32, help="number of bits") 
+#op = OptionParser()
+#op.add_option("-M", "--model", type=int, default=4, help="model type (1,2,3)")
+#op.add_option("-p", "--ps", type=float, default=1.0, help="supervision level (float[0.1,1.0])")
+#op.add_option("-a", "--alpha", type=float, default=0.0, help="alpha value")
+#op.add_option("-b", "--beta", type=float, default=0.015625, help="beta value")+
+#op.add_option("-l", "--lambda_", type=float, default=0.0, help="lambda value")
+#op.add_option("-r", "--repetitions", type=int, default=1, help="repetitions")
+#op.add_option("-o", "--ofilename", type="string", default="results.csv", help="output filename")
+#op.add_option("-s", "--reseed", type=int, default=0, help="if >0 reseed numpy for each repetition")
+#op.add_option("-v", "--addvalidation", type=int, default=1, help="if >0 add the validation set to the train set") ù
+#op.add_option("-c", "--length_codes", type=int, default=32, help="number of bits")
 
 
-(opts, args) = op.parse_args()
+#(opts, args) = op.parse_args()
+#ps = float(opts.ps)
 
-ps = float(opts.ps)
+def testSnippets(model,ps, addvalidation, alpha, beta, lambda_, repetitions, nbits,  ofilename, reseed=0):
+    seeds_to_reseed = [20,144,1028,2044,101,6077,621,1981,2806,79]
+    nbits = int(nbits)
 
-seeds_to_reseed = [20,144,1028,2044,101,6077,621,1981,2806,79]
-
-for rep in range(opts.repetitions):
-    if opts.reseed > 0:
-        new_seed = seeds_to_reseed[rep%len(seeds_to_reseed)]
-        #MODIFICA ESEGUITA
-		#Vecchia versione: run_snippets(opts.model,percentage_supervision=ps,nbits_for_hashing=opts.length_codes,alpha_val=opts.alpha,gamma_val=opts.gamma,beta_VAL=opts.beta,name_file=opts.ofilename,addval=opts.addvalidation,reseed=opts.reseed,seed_to_reseed=new_seed)
-		#Sostituisci  gamma_val con lambda_val e opts.gamma con opts.lambda_
-        run_snippets(opts.model,percentage_supervision=ps,nbits_for_hashing=opts.length_codes,alpha_val=opts.alpha,lambda_val=opts.lambda_,beta_VAL=opts.beta,name_file=opts.ofilename,addval=opts.addvalidation,reseed=opts.reseed,seed_to_reseed=new_seed)
-    else:
-        #MODIFICA ESEGUITA
-		#Vecchia versione: run_snippets(opts.model,percentage_supervision=ps,nbits_for_hashing=opts.length_codes,alpha_val=opts.alpha,gamma_val=opts.gamma,beta_VAL=opts.beta,name_file=opts.ofilename,addval=opts.addvalidation,reseed=opts.reseed,seed_to_reseed=20)
-		#Sostituisci  gamma_val con lambda_val e opts.gamma con opts.lambda_
-        run_snippets(opts.model,percentage_supervision=ps,nbits_for_hashing=opts.length_codes,alpha_val=opts.alpha,lambda_val=opts.lambda_,beta_VAL=opts.beta,name_file=opts.ofilename,addval=opts.addvalidation,reseed=opts.reseed,seed_to_reseed=20)
+    for rep in range(repetitions):
+        if reseed > 0:
+            new_seed = seeds_to_reseed[rep%len(seeds_to_reseed)]
+            run_snippets(model,percentage_supervision=ps,nbits_for_hashing=nbits,alpha_val=alpha,lambda_val=lambda_,beta_VAL=beta,name_file=ofilename,addval=addvalidation,reseed=reseed,seed_to_reseed=new_seed)
+        else:
+            run_snippets(model,percentage_supervision=ps,nbits_for_hashing=nbits,alpha_val=alpha,lambda_val=lambda_,beta_VAL=beta,name_file=ofilename,addval=addvalidation,reseed=reseed,seed_to_reseed=20)
 
 

@@ -579,3 +579,16 @@ def find_lambda(create_model, X_source_inp, X_source_out, X_query_input, labels_
     print("***************************************")
 
     return lambda_try[idx_max] #lambda select
+
+# To get parameter to try various settings
+def obtain_parameters():
+    filename = "./parametersChange.csv"
+    tabella = pd.read_csv(filename, sep=',',
+                          error_bad_lines=False)  # Cosi leggiamo dati con il corrispondente separatore
+    X = tabella.drop(['key'], axis=1)
+
+    alpha = X['alpha']
+    beta = X['beta']
+    lambda_ = X['lambda']
+
+    return (alpha, beta, lambda_)
