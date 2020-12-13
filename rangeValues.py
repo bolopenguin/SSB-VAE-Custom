@@ -25,10 +25,10 @@ for alpha in alphaVal:
             test20news(model=3, ps=ps, addvalidation=1, alpha=alpha, beta=beta, lambda_=lambda_, repetitions=5, nbits=nbits,
                        ofilename='SSBVAE_20NEWS-'+ str(nbits) +'BITS-' + str(alpha) +'ALPHA-'+ str(beta)+'BETA-'+ str(lambda_) +'LAMBDA.csv')
 
-            print("TESTING CIFAR")
-            print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
-            testCifar(model=3, ps=ps, addvalidation=1, alpha=alpha, beta=beta, lambda_=lambda_, repetitions=5, nbits=nbits,
-                       ofilename='SSBVAE_CIFAR-'+ str(nbits) +'BITS-' + str(alpha) +'ALPHA-'+ str(beta)+'BETA-'+ str(lambda_) +'LAMBDA.csv')
+            # print("TESTING CIFAR")
+            # print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
+            # testCifar(model=3, ps=ps, addvalidation=1, alpha=alpha, beta=beta, lambda_=lambda_, repetitions=5, nbits=nbits,
+            #            ofilename='SSBVAE_CIFAR-'+ str(nbits) +'BITS-' + str(alpha) +'ALPHA-'+ str(beta)+'BETA-'+ str(lambda_) +'LAMBDA.csv')
 
             print("TESTING SNIPPETS")
             print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
