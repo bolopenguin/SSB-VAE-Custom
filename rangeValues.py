@@ -22,22 +22,22 @@ for alpha in alphaVal:
 
             print("TESTING 20NEWS")
             print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
-            test20news(model=3, ps=ps, addvalidation=1, alpha=alpha, beta=beta, lambda_=lambda_, repetitions=5, nbits=nbits,
+            test20news(model=3, ps=ps, addvalidation=1, alpha=alpha, beta=beta, lambda_=lambda_, repetitions=2, nbits=nbits,
                        ofilename='SSBVAE_20NEWS-'+ str(nbits) +'BITS-' + str(alpha) +'ALPHA-'+ str(beta)+'BETA-'+ str(lambda_) +'LAMBDA.csv')
 
             # print("TESTING CIFAR")
             # print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
-            # testCifar(model=3, ps=ps, addvalidation=1, alpha=alpha, beta=beta, lambda_=lambda_, repetitions=5, nbits=nbits,
+            # testCifar(model=3, ps=ps, addvalidation=1, alpha=alpha, beta=beta, lambda_=lambda_, repetitions=2, nbits=nbits,
             #            ofilename='SSBVAE_CIFAR-'+ str(nbits) +'BITS-' + str(alpha) +'ALPHA-'+ str(beta)+'BETA-'+ str(lambda_) +'LAMBDA.csv')
 
-            print("TESTING SNIPPETS")
-            print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
-            testSnippets(model=3, ps=ps, addvalidation=1, alpha=alpha, beta=beta, lambda_=lambda_, repetitions=5, nbits=nbits,
-                       ofilename='SSBVAE_SNIPPETS-'+ str(nbits) +'BITS-' + str(alpha) +'ALPHA-'+ str(beta)+'BETA-'+ str(lambda_) +'LAMBDA.csv')
-
-            print("TESTING TMC")
-            print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
-            testTMC(model=3, ps=ps, addvalidation=1, alpha=alpha, beta=beta, lambda_=lambda_, repetitions=5, nbits=nbits,
-                       ofilename='SSBVAE_TMC-'+ str(nbits) +'BITS-' + str(alpha) +'ALPHA-'+ str(beta)+'BETA-'+ str(lambda_) +'LAMBDA.csv')
+            # print("TESTING SNIPPETS")
+            # print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
+            # testSnippets(model=3, ps=ps, addvalidation=1, alpha=alpha, beta=beta, lambda_=lambda_, repetitions=2, nbits=nbits,
+            #            ofilename='SSBVAE_SNIPPETS-'+ str(nbits) +'BITS-' + str(alpha) +'ALPHA-'+ str(beta)+'BETA-'+ str(lambda_) +'LAMBDA.csv')
+            #
+            # print("TESTING TMC")
+            # print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
+            # testTMC(model=3, ps=ps, addvalidation=1, alpha=alpha, beta=beta, lambda_=lambda_, repetitions=2, nbits=nbits,
+            #            ofilename='SSBVAE_TMC-'+ str(nbits) +'BITS-' + str(alpha) +'ALPHA-'+ str(beta)+'BETA-'+ str(lambda_) +'LAMBDA.csv')
 
 

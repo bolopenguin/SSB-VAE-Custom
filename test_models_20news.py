@@ -99,7 +99,7 @@ def run_20_news(model_id,percentage_supervision,nbits_for_hashing,alpha_val,lamb
 	
 	#Creating and Training the Models
 
-	batch_size = 100
+	batch_size = 512
 
 	tf.keras.backend.clear_session()
 
@@ -107,17 +107,17 @@ def run_20_news(model_id,percentage_supervision,nbits_for_hashing,alpha_val,lamb
 
 	if model_id == 1:
 		vae,encoder,generator = VDSHS(X_total.shape[1],n_classes,Nb=int(nbits_for_hashing),units=500,layers_e=2,layers_d=0,beta=beta_VAL,alpha=alpha_val)
-		vae.fit(X_total_input, [X_total, Y_total_input], epochs=30, batch_size=batch_size,verbose=1)
+		vae.fit(X_total_input, [X_total, Y_total_input], epochs=10, batch_size=batch_size,verbose=1)
 		name_model = 'VDSH_S'
 
 	elif model_id == 2:
 		vae,encoder,generator = PSH_GS(X_train.shape[1],n_classes,Nb=int(nbits_for_hashing),units=500,layers_e=2,layers_d=0,beta=beta_VAL,alpha=alpha_val,lambda_=lambda_val)
-		vae.fit(X_total_input, [X_total, Y_total_input], epochs=30, batch_size=batch_size,verbose=1)
+		vae.fit(X_total_input, [X_total, Y_total_input], epochs=10, batch_size=batch_size,verbose=1)
 		name_model = 'PHS_GS'
 
 	elif model_id == 3:
 		vae,encoder,generator = SSBVAE(X_train.shape[1],n_classes,Nb=int(nbits_for_hashing),units=500,layers_e=2,layers_d=0,beta=beta_VAL,alpha=alpha_val,lambda_=lambda_val)
-		vae.fit(X_total_input, [X_total, Y_total_input], epochs=30, batch_size=batch_size,verbose=1)
+		vae.fit(X_total_input, [X_total, Y_total_input], epochs=10, batch_size=batch_size,verbose=1)
 		name_model = 'SSB_VAE'
 
 	toc = time.perf_counter()

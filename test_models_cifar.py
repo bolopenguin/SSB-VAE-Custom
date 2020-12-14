@@ -111,7 +111,7 @@ def load_data(percentage_supervision,addval=1,reseed=0,seed_to_reseed=20):
 
 def run_CIFAR(model_id,percentage_supervision,nbits_for_hashing,alpha_val,lambda_val,beta_VAL,name_file, addval,reseed,seed_to_reseed, n_classes, labels, labels_total, labels_test, X_total, X_test, X_total_input, X_test_input, Y_total_input):
  
-    batch_size = 100*2
+    batch_size = 512
     tf.keras.backend.clear_session()
 
     tic = time.perf_counter()
@@ -119,7 +119,7 @@ def run_CIFAR(model_id,percentage_supervision,nbits_for_hashing,alpha_val,lambda
     if model_id == 1:
 
         vae,encoder,generator = VDSHS(X_total.shape[1],n_classes,Nb=int(nbits_for_hashing),units=500,layers_e=2,layers_d=0,beta=beta_VAL,alpha=alpha_val)
-        vae.fit(X_total_input, [X_total, Y_total_input], epochs=30, batch_size=batch_size,verbose=1)
+        vae.fit(X_total_input, [X_total, Y_total_input], epochs=10, batch_size=batch_size,verbose=1)
         name_model = 'VDSH_S'
 
     elif model_id == 2:
@@ -128,7 +128,7 @@ def run_CIFAR(model_id,percentage_supervision,nbits_for_hashing,alpha_val,lambda
 		#Vecchia versione: vae,encoder,generator = PSH_GS(X_total.shape[1],n_classes,Nb=int(nbits_for_hashing),units=500,layers_e=2,layers_d=0,beta=beta_VAL,alpha=alpha_val,gamma=gamma_val)
 		#Sostituisci gamma con lambda_ , e gamma_val con lambda_val
         vae,encoder,generator = PSH_GS(X_total.shape[1],n_classes,Nb=int(nbits_for_hashing),units=500,layers_e=2,layers_d=0,beta=beta_VAL,alpha=alpha_val,lambda_=lambda_val)
-        vae.fit(X_total_input, [X_total, Y_total_input], epochs=30, batch_size=batch_size,verbose=1)
+        vae.fit(X_total_input, [X_total, Y_total_input], epochs=10, batch_size=batch_size,verbose=1)
         name_model = 'PHS_GS'
 
     else:#elif model_id == 3:
@@ -137,7 +137,7 @@ def run_CIFAR(model_id,percentage_supervision,nbits_for_hashing,alpha_val,lambda
 		#Vecchia versione: vae,encoder,generator = SSBVAE(X_total.shape[1],n_classes,Nb=int(nbits_for_hashing),units=500,layers_e=2,layers_d=0,beta=beta_VAL,alpha=alpha_val,gamma=gamma_val)
 		#Sostituisci gamma con lambda_ , e gamma_val con lambda_val
         vae,encoder,generator = SSBVAE(X_total.shape[1],n_classes,Nb=int(nbits_for_hashing),units=500,layers_e=2,layers_d=0,beta=beta_VAL,alpha=alpha_val,lambda_=lambda_val)
-        vae.fit(X_total_input, [X_total, Y_total_input], epochs=30, batch_size=batch_size,verbose=1)
+        vae.fit(X_total_input, [X_total, Y_total_input], epochs=10, batch_size=batch_size,verbose=1)
         name_model = 'SSB_VAE'
 
 
