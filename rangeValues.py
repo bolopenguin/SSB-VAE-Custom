@@ -23,7 +23,7 @@ for alpha in alphaVal:
             print("TESTING 20NEWS")
             print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
             test20news(model=3, ps=ps, addvalidation=1, alpha=alpha, beta=beta, lambda_=lambda_, repetitions=2, nbits=nbits,
-                       ofilename='Output/SSBVAE_20NEWS-'+ str(nbits) +'BITS-' + str(alpha) +'ALPHA-'+ str(beta)+'BETA-'+ str(lambda_) +'LAMBDA.csv')
+                       ofilename='SSBVAE_20NEWS-'+ str(nbits) +'BITS-' + str(alpha) +'ALPHA-'+ str(beta)+'BETA-'+ str(lambda_) +'LAMBDA.csv')
 
             # print("TESTING CIFAR")
             # print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
