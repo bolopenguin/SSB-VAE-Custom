@@ -20,10 +20,10 @@ for alpha in alphaVal:
     for beta in betaVal:
         for lambda_ in lambdaVal:
 
-            print("TESTING 20NEWS")
-            print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
-            test20news(model=3, ps=ps, addvalidation=1, alpha=alpha, beta=beta, lambda_=lambda_, repetitions=2, nbits=nbits,
-                       ofilename='SSBVAE_20NEWS-'+ str(nbits) +'BITS-' + str(alpha) +'ALPHA-'+ str(beta)+'BETA-'+ str(lambda_) +'LAMBDA.csv')
+            # print("TESTING 20NEWS")
+            # print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
+            # test20news(model=3, ps=ps, addvalidation=1, alpha=alpha, beta=beta, lambda_=lambda_, repetitions=2, nbits=nbits,
+            #            ofilename='SSBVAE_20NEWS-'+ str(nbits) +'BITS-' + str(alpha) +'ALPHA-'+ str(beta)+'BETA-'+ str(lambda_) +'LAMBDA.csv')
 
             # print("TESTING CIFAR")
             # print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
@@ -35,9 +35,9 @@ for alpha in alphaVal:
             # testSnippets(model=3, ps=ps, addvalidation=1, alpha=alpha, beta=beta, lambda_=lambda_, repetitions=2, nbits=nbits,
             #            ofilename='SSBVAE_SNIPPETS-'+ str(nbits) +'BITS-' + str(alpha) +'ALPHA-'+ str(beta)+'BETA-'+ str(lambda_) +'LAMBDA.csv')
             #
-            # print("TESTING TMC")
-            # print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
-            # testTMC(model=3, ps=ps, addvalidation=1, alpha=alpha, beta=beta, lambda_=lambda_, repetitions=2, nbits=nbits,
-            #            ofilename='SSBVAE_TMC-'+ str(nbits) +'BITS-' + str(alpha) +'ALPHA-'+ str(beta)+'BETA-'+ str(lambda_) +'LAMBDA.csv')
+            print("TESTING TMC")
+            print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
+            testTMC(model=3, ps=ps, addvalidation=1, alpha=alpha, beta=beta, lambda_=lambda_, repetitions=2, nbits=nbits,
+                       ofilename='SSBVAE_TMC-'+ str(nbits) +'BITS-' + str(alpha) +'ALPHA-'+ str(beta)+'BETA-'+ str(lambda_) +'LAMBDA.csv')
 
 
