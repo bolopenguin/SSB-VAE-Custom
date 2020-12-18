@@ -194,7 +194,7 @@ import sys
 
 #(opts, args) = op.parse_args()
 
-def testTMC(model,ps, addvalidation, alpha, beta, lambda_, repetitions, nbits,  ofilename, reseed=0):
+def testtmc(model,ps, addvalidation, alpha, beta, lambda_, repetitions, nbits,  ofilename, reseed=0):
 
     seeds_to_reseed = [20,144,1028,2044,101,6077,621,1981,2806,79]
     nbits = int(nbits)

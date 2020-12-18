@@ -581,6 +581,84 @@ def find_lambda(create_model, X_source_inp, X_source_out, X_query_input, labels_
     return lambda_try[idx_max] #lambda select
 
 # To get parameter to try various settings
+# def obtain_parameters(p,dataset):
+#     if dataset == "20news":
+#         filename = "./Data/20News_Popolation.csv"
+#         tabella = pd.read_csv(filename, sep=',',
+#                             error_bad_lines=False)  # Cosi leggiamo dati con il corrispondente separatore
+#         X = tabella.drop(['precisione'], axis=1)
+#
+#         alpha = []
+#         beta = []
+#         lambda_ = []
+#
+#         fine = int(X.shape[0])
+#         start = fine - 30
+#         for row in range(start,fine):
+#             if float(p) == float(X.iloc[row,0]):
+#                 alpha.append(X.iloc[row,1])
+#                 beta.append(X.iloc[row,2])
+#                 lambda_.append(X.iloc[row,3])
+#         print("20News Alpha: {} - Beta {} - Lambda: {}".format(alpha,beta,lambda_))
+#         return (alpha, beta, lambda_)
+#
+#     if dataset == "snippets":
+#         filename = "./Data/Snippets_Popolation.csv"
+#         tabella = pd.read_csv(filename, sep=',',
+#                             error_bad_lines=False)  # Cosi leggiamo dati con il corrispondente separatore
+#         X = tabella.drop(['precisione'], axis=1)
+#
+#         alpha = []
+#         beta = []
+#         lambda_ = []
+#         fine = int(X.shape[0])
+#         start = fine - 30
+#         for row in range(0,30):
+#             if float(p) == float(X.iloc[row,0]):
+#                 alpha.append(X.iloc[row,1])
+#                 beta.append(X.iloc[row,2])
+#                 lambda_.append(X.iloc[row,3])
+#         print("Snippets Alpha: {} - Beta {} - Lambda: {}".format(alpha,beta,lambda_))
+#         return (alpha, beta, lambda_)
+#
+#     if dataset == "tmc":
+#         filename = "./Data/TMC_Popolation.csv"
+#         tabella = pd.read_csv(filename, sep=',',
+#                             error_bad_lines=False)  # Cosi leggiamo dati con il corrispondente separatore
+#         X = tabella.drop(['precisione'], axis=1)
+#
+#         alpha = []
+#         beta = []
+#         lambda_ = []
+#         fine = int(X.shape[0])
+#         start = fine - 30
+#         for row in range(0,30):
+#             if float(p) == float(X.iloc[row,0]):
+#                 alpha.append(X.iloc[row,1])
+#                 beta.append(X.iloc[row,2])
+#                 lambda_.append(X.iloc[row,3])
+#         print("TMC Alpha: {} - Beta {} - Lambda: {}".format(alpha,beta,lambda_))
+#         return (alpha, beta, lambda_)
+#
+#     if dataset == "cifar":
+#         filename = "./Data/Cifar_Popolation.csv"
+#         tabella = pd.read_csv(filename, sep=',',
+#                             error_bad_lines=False)  # Cosi leggiamo dati con il corrispondente separatore
+#         X = tabella.drop(['precisione'], axis=1)
+#
+#         alpha = []
+#         beta = []
+#         lambda_ = []
+#         fine = int(X.shape[0])
+#         start = fine - 30
+#         for row in range(0,30):
+#             if float(p) == float(X.iloc[row,0]):
+#                 alpha.append(X.iloc[row,1])
+#                 beta.append(X.iloc[row,2])
+#                 lambda_.append(X.iloc[row,3])
+#         print("Cifar Alpha: {} - Beta {} - Lambda: {}".format(alpha,beta,lambda_))
+#         return (alpha, beta, lambda_)
+
 def obtain_parameters():
     filename = "./parametersChange.csv"
     tabella = pd.read_csv(filename, sep=',',

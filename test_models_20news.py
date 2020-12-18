@@ -95,7 +95,6 @@ def run_20_news(model_id,percentage_supervision,nbits_for_hashing,alpha_val,lamb
 
 		Y_total_input = np.concatenate((y_train_input,y_val_input),axis=0)
 
-	print(y_train_input.shape, y_val_input.shape, y_test_input.shape)
 	
 	#Creating and Training the Models
 

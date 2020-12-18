@@ -15,6 +15,10 @@ def load_data(nbits=32, folder="./", ext='.csv'):
                 dataset = pd.read_csv(folder + file, header=None)
                 data=pd.concat([data, dataset])
 
+    s = str(file)
+    start = s.find('BITS-') + 5
+    end = s.find(ext, start)
+
     colnames=['dataset', 'algorithm', 'level', 'alpha', 'beta', 'lambda', 'p@100', 'r@100', 'p@1000', 'p@5000', 'map@100', 'map@1000', 'map@5000','added_val_flag','seed_used']
     data.columns = colnames
     return data

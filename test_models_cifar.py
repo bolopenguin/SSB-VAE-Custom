@@ -194,7 +194,7 @@ from optparse import OptionParser
 
 
 
-def testCifar(model,ps, addvalidation, alpha, beta, lambda_, repetitions, nbits,  ofilename, reseed=0):
+def testcifar(model,ps, addvalidation, alpha, beta, lambda_, repetitions, nbits,  ofilename, reseed=0):
     seeds_to_reseed = [20, 144, 1028, 2044, 101, 6077, 621, 1981, 2806, 79]
     nbits = int(nbits)
 
