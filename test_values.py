@@ -28,25 +28,25 @@ dataset = str(opts.ds).lower()
 if (dataset == "20news"):
     print("TESTING 20NEWS")
     test20news(model=3, ps=ps, addvalidation=1, alpha=opts.alpha, beta=opts.beta, lambda_=opts.lambda_, repetitions=opts.repetitions, nbits=opts.length_codes,
-               ofilename='./Results/SSBVAE_20NEWS-' + str(nbits) + 'BITS-' + str(alpha) + 'ALPHA-' + str(
-                   beta) + 'BETA-' + str(lambda_) + 'LAMBDA.csv')
+               ofilename='./Results/SSBVAE_20NEWS-' + str(opts.length_codes) + 'BITS-' + str(opts.alpha) + 'ALPHA-' + str(
+                   opts.beta) + 'BETA-' + str(lambda_) + 'LAMBDA.csv')
 
 elif (dataset == "cifar"):
     print("TESTING CIFAR")
     testcifar(model=3, ps=ps, addvalidation=1, alpha=opts.alpha, beta=opts.beta, lambda_=opts.lambda_, repetitions=opts.repetitions, nbits=opts.length_codes,
-              ofilename='./Results/SSBVAE_CIFAR-' + str(nbits) + 'BITS-' + str(alpha) + 'ALPHA-' + str(
-                  beta) + 'BETA-' + str(lambda_) + 'LAMBDA.csv')
+              ofilename='./Results/SSBVAE_CIFAR-' + str(opts.length_codes) + 'BITS-' + str(opts.alpha) + 'ALPHA-' + str(
+                  opts.beta) + 'BETA-' + str(lambda_) + 'LAMBDA.csv')
 
 elif (dataset == "snippets"):
     print("TESTING SNIPPETS")
     testsnippets(model=3, ps=ps, addvalidation=1, alpha=opts.alpha, beta=opts.beta, lambda_=opts.lambda_, repetitions=opts.repetitions, nbits=opts.length_codes,
-                 ofilename='./Results/SSBVAE_SNIPPETS-' + str(nbits) + 'BITS-' + str(alpha) + 'ALPHA-' + str(
-                     beta) + 'BETA-' + str(lambda_) + 'LAMBDA.csv')
+                 ofilename='./Results/SSBVAE_SNIPPETS-' + str(opts.length_codes) + 'BITS-' + str(opts.alpha) + 'ALPHA-' + str(
+                     opts.beta) + 'BETA-' + str(lambda_) + 'LAMBDA.csv')
 
 elif (dataset == "tmc"):
     print("TESTING TMC")
     testtmc(model=3, ps=ps, addvalidation=1, alpha=opts.alpha, beta=opts.beta, lambda_=opts.lambda_, repetitions=opts.repetitions, nbits=opts.length_codes,
-            ofilename='./Results/SSBVAE_TMC-' + str(nbits) + 'BITS-' + str(alpha) + 'ALPHA-' + str(
-                beta) + 'BETA-' + str(lambda_) + 'LAMBDA.csv')
+            ofilename='./Results/SSBVAE_TMC-' + str(opts.length_codes) + 'BITS-' + str(opts.alpha) + 'ALPHA-' + str(
+                opts.beta) + 'BETA-' + str(lambda_) + 'LAMBDA.csv')
 else:
     raise ValueError('ERROR: WRONG DATASET NAME')
