@@ -162,11 +162,6 @@ def run_CIFAR(model_id,percentage_supervision,nbits_for_hashing,alpha_val,lambda
 
     file = open(name_file,"a")
 
-    #colnames  - Modifica Eseguita al commento: Sostituitoa gamma con lambda_
-    #'dataset', 'algorithm', 'level', 'alpha', 'beta', 'lambda_', 'p@100', 'r@100', 'p@1000', 'p@5000', 'map@100', 'map@1000', 'map@5000','added_val_flag','seed_used'
-    #MODIFICA ESEGUITA
-    #Vecchia versione: file.write("%s, %s, %f, %f, %f, %f, %f, %f, %f,  %f, %f, %f, %f, %d, %d\n"%(name_dat,name_model,percentage_supervision,alpha_val,beta_VAL,gamma_val,p100_b,r100_b,p1000_b,p5000_b,map100_b,map1000_b,map5000_b,addval,seed_to_reseed))
-    #Sostituisci gamma_val con lambda_val
     file.write("%s, %s, %f, %f, %f, %f, %f, %f, %f,  %f, %f, %f, %f, %d, %d\n"%(name_dat,name_model,percentage_supervision,alpha_val,beta_VAL,lambda_val,p100_b,r100_b,p1000_b,p5000_b,map100_b,map1000_b,map5000_b,addval,seed_to_reseed))
     file.close()
 
