@@ -60,25 +60,7 @@ Python 3.7
 
 Tensorflow 2.1
 
-## Execution
-
-In order to obtain the results reported in the paper it is necessary execute all the *.sh files as follows:  
-  ```
-# run all *.sh files
-./test_all_20news-16bits.sh
-./test_all_20news-32bits.sh
-./test_all_snippets-16bits.sh
-./test_all_snippets-32bits.sh
-./test_all_TMC-16bits.sh
-./test_all_TMC-32bits.sh
-./test_all_cifar-16bits.sh
-./test_all_cifar-32bits.sh
-
-```
-
-At the end of the computation, the csv files containing the results are generated according to the *-o*
-parameter. Finally the script post_processing.py collects all the csv and save a new csv having the same format 
- of the two table reported in the paper.
+Keras 2.3.1
 
 ## References
 <a id="1">[1]</a> 
