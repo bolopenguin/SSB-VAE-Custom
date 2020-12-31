@@ -580,93 +580,23 @@ def find_lambda(create_model, X_source_inp, X_source_out, X_query_input, labels_
 
     return lambda_try[idx_max] #lambda select
 
-# To get parameter to try various settings
-# def obtain_parameters(p,dataset):
-#     if dataset == "20news":
-#         filename = "./Data/20News_Popolation.csv"
-#         tabella = pd.read_csv(filename, sep=',',
-#                             error_bad_lines=False)  # Cosi leggiamo dati con il corrispondente separatore
-#         X = tabella.drop(['precisione'], axis=1)
-#
-#         alpha = []
-#         beta = []
-#         lambda_ = []
-#
-#         fine = int(X.shape[0])
-#         start = fine - 30
-#         for row in range(start,fine):
-#             if float(p) == float(X.iloc[row,0]):
-#                 alpha.append(X.iloc[row,1])
-#                 beta.append(X.iloc[row,2])
-#                 lambda_.append(X.iloc[row,3])
-#         print("20News Alpha: {} - Beta {} - Lambda: {}".format(alpha,beta,lambda_))
-#         return (alpha, beta, lambda_)
-#
-#     if dataset == "snippets":
-#         filename = "./Data/Snippets_Popolation.csv"
-#         tabella = pd.read_csv(filename, sep=',',
-#                             error_bad_lines=False)  # Cosi leggiamo dati con il corrispondente separatore
-#         X = tabella.drop(['precisione'], axis=1)
-#
-#         alpha = []
-#         beta = []
-#         lambda_ = []
-#         fine = int(X.shape[0])
-#         start = fine - 30
-#         for row in range(0,30):
-#             if float(p) == float(X.iloc[row,0]):
-#                 alpha.append(X.iloc[row,1])
-#                 beta.append(X.iloc[row,2])
-#                 lambda_.append(X.iloc[row,3])
-#         print("Snippets Alpha: {} - Beta {} - Lambda: {}".format(alpha,beta,lambda_))
-#         return (alpha, beta, lambda_)
-#
-#     if dataset == "tmc":
-#         filename = "./Data/TMC_Popolation.csv"
-#         tabella = pd.read_csv(filename, sep=',',
-#                             error_bad_lines=False)  # Cosi leggiamo dati con il corrispondente separatore
-#         X = tabella.drop(['precisione'], axis=1)
-#
-#         alpha = []
-#         beta = []
-#         lambda_ = []
-#         fine = int(X.shape[0])
-#         start = fine - 30
-#         for row in range(0,30):
-#             if float(p) == float(X.iloc[row,0]):
-#                 alpha.append(X.iloc[row,1])
-#                 beta.append(X.iloc[row,2])
-#                 lambda_.append(X.iloc[row,3])
-#         print("TMC Alpha: {} - Beta {} - Lambda: {}".format(alpha,beta,lambda_))
-#         return (alpha, beta, lambda_)
-#
-#     if dataset == "cifar":
-#         filename = "./Data/Cifar_Popolation.csv"
-#         tabella = pd.read_csv(filename, sep=',',
-#                             error_bad_lines=False)  # Cosi leggiamo dati con il corrispondente separatore
-#         X = tabella.drop(['precisione'], axis=1)
-#
-#         alpha = []
-#         beta = []
-#         lambda_ = []
-#         fine = int(X.shape[0])
-#         start = fine - 30
-#         for row in range(0,30):
-#             if float(p) == float(X.iloc[row,0]):
-#                 alpha.append(X.iloc[row,1])
-#                 beta.append(X.iloc[row,2])
-#                 lambda_.append(X.iloc[row,3])
-#         print("Cifar Alpha: {} - Beta {} - Lambda: {}".format(alpha,beta,lambda_))
-#         return (alpha, beta, lambda_)
+#To get parameter to try various settings
+def obtain_parameters(p,df, nbits):
+    filename = 'Hyperparameters/' + df +"_" + str(nbits) +'bits_hyperparameters.csv'
 
-def obtain_parameters():
-    filename = "./parametersChange.csv"
-    tabella = pd.read_csv(filename, sep=',',
-                          error_bad_lines=False)  # Cosi leggiamo dati con il corrispondente separatore
-    X = tabella.drop(['key'], axis=1)
+    table = pd.read_csv(filename, sep=',', error_bad_lines=False)
+    x = table.drop(['algorithm','p@100'], axis=1)
 
-    alpha = X['alpha']
-    beta = X['beta']
-    lambda_ = X['lambda']
+    #to take the only necessary lines, not taking into account the previous ones (Old analyzes)
+    end = int(x.shape[0])
+    start = end - 30
+    x = x.iloc[start:end]
 
-    return (alpha, beta, lambda_)
+    #Select the level and create float64 lists of parameters to work on
+    y = x[x['level'] ==  float(p)]
+    alpha = y['alpha'].to_numpy()
+    beta = y['beta'].to_numpy()
+    lambda_ = y['lambda'].to_numpy()
+
+    return alpha, beta, lambda_
+
