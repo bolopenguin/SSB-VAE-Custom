@@ -27,6 +27,7 @@ for name in dataset_names:
         print("Doing "+name+" @Level" + str(level))
         df = eval("df_"+name+"[df_"+name+"[\"level\"]=="+str(level)+"]")
         df = df.drop("level", 1)
+        #print(df)
 
         size = np.array(200 * (df['p@100']))
         g = sns.pairplot(df, hue="p@100", kind="scatter", diag_kind="hist",plot_kws={"s": size, 'alpha':0.4})
