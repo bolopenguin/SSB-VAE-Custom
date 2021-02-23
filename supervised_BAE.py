@@ -183,7 +183,7 @@ def PSH_GS(data_dim,n_classes,Nb,units,layers_e,layers_d,opt='adam',BN=True, sum
     x = Input(shape=(data_dim,))
 
     hidden = pre_encoder(x)
-    logits_b  = Dense(Nb, activation='linear', name='logits-b')(hidden) 
+    logits_b  = Dense(Nb, activation='linear', name='logits-b')(hidden)
     if multilabel:
         supervised_layer = Dense(n_classes, activation='sigmoid',name='sup-class')(hidden)#req n_classes  
     else:

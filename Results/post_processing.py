@@ -4,7 +4,7 @@ import numpy as np
 
 measure = 'p@100'
 nbits = 16
-folder = "./"
+folder = "./ResultsTraning"
 ext = '.csv'
 directory = os.path.join(folder)
 

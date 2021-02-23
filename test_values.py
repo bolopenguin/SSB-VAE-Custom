@@ -25,13 +25,13 @@ ps = float(opts.ps)
 nbits = opts.nbits
 df = str(opts.ds).lower()
 
-print("TESTING " + df.upper())
+print("TESTING " + df.upper() +" with model " + str(opts.model))
 print("Alpha: ", opts.alpha, " Beta: ", opts.beta, " Lambda :", opts.lambda_)
 
 header = "test"+df
 ofile = "\"./Results/ResultsTraning/SSBVAE_" + df.upper() + "-" + str(opts.nbits) + "BITS-" + str(opts.alpha) + "ALPHA-" + str(
         opts.beta) + "BETA-" + str(opts.lambda_) + "LAMBDA.csv\""
-tail = "(model=3, ps=ps, addvalidation=1, alpha=" + str(opts.alpha) + ", beta=" + str(opts.beta) + ", lambda_=" + str(opts.lambda_) + \
+tail = "(model="+str(opts.model)+", ps=ps, addvalidation=1, alpha=" + str(opts.alpha) + ", beta=" + str(opts.beta) + ", lambda_=" + str(opts.lambda_) + \
        ", repetitions=2, nbits=" + str(opts.nbits) + ",ofilename=" + ofile + ")"
 func = header + tail
 eval(func)
