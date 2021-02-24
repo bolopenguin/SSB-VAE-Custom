@@ -75,6 +75,7 @@ for name in dataset_names:
             else:  print(cols[i] + " does not influence in the results ")
         print()
 
+        #TODO: check per controllare che non si ripetino i valori
         indexAlpha, = np.where(alphaValues == top_values[0])
         indexBeta, = np.where(betaValues == top_values[1])
         indexLambda, = np.where(lambdaValues == top_values[2])
@@ -82,30 +83,44 @@ for name in dataset_names:
         if indexAlpha == 0:
             operatorAlpha = "low"
             print("The best Alpha value is " + str(top_values[0]) + ", i.e. the lowest among those available")
+            new_alpha = [top_values[0], top_values[0]/10, top_values[0]/100]
         elif indexAlpha == 1:
             operatorBeta = "medium"
             print("The best Alpha value is " + str(top_values[0]) + ", that is the average value among those available")
+            new_alpha = [top_values[0], top_values[0] * 10, top_values[0] / 10]
         else:
             operatorLambda = "high"
             print("The best Alpha value is " + str(top_values[0]) + ", i.e. the highest among those available")
+            new_alpha = [top_values[0], top_values[0] * 10, top_values[0] * 100]
 
         if indexBeta == 0:
             operatorBeta = "low"
             print("The best Beta value is " + str(top_values[1]) + ", i.e. the lowest among those available")
+            new_beta = [top_values[1], top_values[1]/10, top_values[1]/100]
         elif indexBeta == 1:
             operatorBeta = "medium"
             print("The best Beta value is " + str(top_values[1]) + ", that is the average value among those available")
+            new_beta = [top_values[1], top_values[1]/10, top_values[1]*10]
         else:
             operatorLambda = "high"
             print("The best Beta value is " + str(top_values[1]) + ", i.e. the highest among those available")
+            new_beta = [top_values[1], top_values[1]*10, top_values[1]*100]
 
         if indexLambda == 0:
             operatorLambda = "low"
             print("The best Lambda value is " + str(top_values[2]) + ", i.e. the lowest among those available")
+            new_lambda = [top_values[2], top_values[2]/2, top_values[2]/4]
         elif indexLambda == 1:
             operatorLambda = "medium"
             print("The best Lambda value is " + str(top_values[2]) + ", that is the average value among those available")
+            new_lambda = [top_values[2], top_values[2]/2, top_values[2]*2]
         else:
             operatorLambda = "high"
             print("The best Lambda value is " + str(top_values[2]) + ", i.e. the highest among those available")
+            new_lambda = [top_values[2], top_values[2] * 2, top_values[2] * 4]
+
+        print()
+        print("New alpha values: \n", new_alpha)
+        print("New beta values: \n", new_beta)
+        print("New lambda values: \n", new_lambda)
 
