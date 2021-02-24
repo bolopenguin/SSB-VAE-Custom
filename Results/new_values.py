@@ -27,23 +27,85 @@ n_rows = 3
 # loop over all the levels and datasets
 for name in dataset_names:
     for level in supervised_levels:
-        print("Doing " + name + " @Level " + str(level))
+        print("------------------------------------------------------")
+        print(name + " @Level" + str(level))
+        print()
         df = eval("df_" + name + "[df_" + name + "[\"level\"]==" + str(level) + "]")
         df = df.drop("level", 1)
+
+        #I create lists without repetitions of the parameters used for training/testing
+        alphaValues = np.sort(df['alpha'].unique())
+        betaValues = np.sort(df['beta'].unique())
+        lambdaValues = np.sort(df['lambda'].unique())
+
         # Took the first n_rows values in order of accuracy
-        df = df[df['p@100'].isin(list(df['p@100'].nlargest(n_rows)))].sort_values(by="p@100", ascending=False).reset_index(drop=True)
-        print(df)
+        df_top = df[df['p@100'].isin(list(df['p@100'].nlargest(n_rows)))].sort_values(by="p@100", ascending=False).reset_index(drop=True)
+        df_bot = df[df['p@100'].isin(list(df['p@100'].nsmallest(n_rows)))].sort_values(by="p@100",ascending=True).reset_index(drop=True)
+
+        print("Best Values: ")
+        print(df_top)
+        print()
+        print("Worse Values: ")
+        print(df_bot)
+        print()
 
         # List to store the most frequent values for the hyper-parameter
         top_values = []
+        bot_values = []
         for col in cols:
             # Count the occurrences of the different values in the top
-            top_value = df[col].value_counts().idxmax()
-            top_occ = df[col].value_counts().max()
+            top_value = df_top[col].value_counts().idxmax()
+            bot_value = df_bot[col].value_counts().idxmin()
+            top_occ = df_top[col].value_counts().max()
+            bot_occ = df_bot[col].value_counts().min()
             # If one occurrence is not frequent (tie) we take the first value (so with an higher accuracy)
             if top_occ == 1:
-                top_value = df[col][0]
+                top_value = df_top[col][0]
+            if bot_occ == 1:
+                bot_value = df_bot[col][0]
             top_values.append(top_value)
-        print(top_values)
+            bot_values.append(bot_value)
 
+        top_values = np.asarray(top_values)
+        bot_values = np.asarray(bot_values)
+        diff = top_values - bot_values
+        for i in range(len(cols)):
+            if diff[i] > 0: print(cols[i] + " gives the best results when it is higher ")
+            elif diff[i] < 0: print(cols[i] + " gives the best results when it is lower")
+            else:  print(cols[i] + " does not influence in the results ")
+        print()
+
+        indexAlpha, = np.where(alphaValues == top_values[0])
+        indexBeta, = np.where(betaValues == top_values[1])
+        indexLambda, = np.where(lambdaValues == top_values[2])
+
+        if indexAlpha == 0:
+            operatorAlpha = "low"
+            print("The best Alpha value is " + str(top_values[0]) + ", i.e. the lowest among those available")
+        elif indexAlpha == 1:
+            operatorBeta = "medium"
+            print("The best Alpha value is " + str(top_values[0]) + ", that is the average value among those available")
+        else:
+            operatorLambda = "high"
+            print("The best Alpha value is " + str(top_values[0]) + ", i.e. the highest among those available")
+
+        if indexBeta == 0:
+            operatorBeta = "low"
+            print("The best Beta value is " + str(top_values[1]) + ", i.e. the lowest among those available")
+        elif indexBeta == 1:
+            operatorBeta = "medium"
+            print("The best Beta value is " + str(top_values[1]) + ", that is the average value among those available")
+        else:
+            operatorLambda = "high"
+            print("The best Beta value is " + str(top_values[1]) + ", i.e. the highest among those available")
+
+        if indexLambda == 0:
+            operatorLambda = "low"
+            print("The best Lambda value is " + str(top_values[2]) + ", i.e. the lowest among those available")
+        elif indexLambda == 1:
+            operatorLambda = "medium"
+            print("The best Lambda value is " + str(top_values[2]) + ", that is the average value among those available")
+        else:
+            operatorLambda = "high"
+            print("The best Lambda value is " + str(top_values[2]) + ", i.e. the highest among those available")
 

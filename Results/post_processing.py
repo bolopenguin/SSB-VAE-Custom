@@ -31,5 +31,4 @@ data=data.sort_values(by=['algorithm', 'dataset', 'level'])
 data_avg = data.groupby(['dataset', 'algorithm', 'level','alpha','beta' ,'lambda']).mean()
 
 
-print(data_avg)
 data_avg.to_csv('ResultsPostProcessing/table_' + str(nbits) + 'bits.csv')
