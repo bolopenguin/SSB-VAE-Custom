@@ -9,10 +9,6 @@ from utils import obtain_parameters
 
 op = OptionParser()
 op.add_option("-M", "--model", type=int, default=3, help="model type (1,2,3)")
-op.add_option("-p", "--ps", type=float, default=1.0, help="supervision level (float[0.1,1.0])")
-op.add_option("-a", "--alpha", type=float, default=0.0, help="alpha value")
-op.add_option("-b", "--beta", type=float, default=0.003906, help="beta value")
-op.add_option("-l", "--lambda_", type=float, default=0.0, help="lambda value")
 op.add_option("-r", "--repetitions", type=int, default=2, help="repetitions")
 op.add_option("-s", "--reseed", type=int, default=0, help="if >0 reseed numpy for each repetition")
 op.add_option("-v", "--addvalidation", type=int, default=1, help="if >0 add the validation set to the train set")
@@ -21,22 +17,27 @@ op.add_option("-d", "--ds", type="string", default="20news", help="Dataset to tr
 
 (opts, args) = op.parse_args()
 nbits = opts.nbits
-ps = float(opts.ps)
 df = str(opts.ds).lower()
-alphaVal, betaVal, lambdaVal = obtain_parameters(ps, df, nbits)
+supervised_levels = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
 header = "test"+df
-for alpha in alphaVal:
-    for beta in betaVal:
-        for lambda_ in lambdaVal:
-            print("TESTING "+df.upper())
-            print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
 
-            ofile="\"./Results/ResultsTraning/SSBVAE_"+df.upper()+"-"+str(nbits)+"BITS-"+str(alpha)+"ALPHA-"+str(beta)+"BETA-"+str(lambda_)+"LAMBDA.csv\""
-            tail = "(model="+str(opts.model)+", ps="+str(opts.ps)+", addvalidation="+str(opts.addvalidation)+", alpha="+str(alpha)+", beta="+str(beta)+\
-                   ", lambda_="+str(lambda_)+", repetitions="+str(opts.repetitions)+", nbits="+str(nbits)+",ofilename="+ofile+")"
-            func = header + tail
-            eval(func)
+for level in supervised_levels:
+    alphaVal, betaVal, lambdaVal = obtain_parameters(level, df, nbits)
+    for alpha in alphaVal:
+        for beta in betaVal:
+            for lambda_ in lambdaVal:
+                print("TESTING " + df.upper() + " @Level" + str(level))
+                print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
+
+                ofile = "\"./Results/ResultsTraning/SSBVAE_"+df.upper()+"-"+str(nbits)+"BITS-"+\
+                        str(alpha)+"ALPHA-"+str(beta)+"BETA-"+str(lambda_)+"LAMBDA.csv\""
+                tail = "(model="+str(opts.model)+",ps="+str(level)+",addvalidation="+str(opts.addvalidation)+\
+                       ",alpha="+str(alpha)+",beta="+str(beta)+",lambda_="+str(lambda_)+",repetitions="+str(opts.repetitions)+",nbits="+\
+                       str(nbits)+",ofilename="+ofile+")"
+                func = header + tail
+                eval(func)
+
 
 
 

@@ -9,7 +9,7 @@ from utils import *
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.stem.snowball import SnowballStemmer
-from nltk.stem import WordNetLemmatizer 
+from nltk.stem import WordNetLemmatizer
 from keras.utils import to_categorical
 from sklearn import preprocessing
 

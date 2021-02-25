@@ -12,7 +12,7 @@ op = OptionParser()
 op.add_option("-M", "--model", type=int, default=3, help="model type (1,2,3)")
 op.add_option("-p", "--ps", type=float, default=1.0, help="supervision level (float[0.1,1.0])")
 op.add_option("-a", "--alpha", type=float, default=0.0, help="alpha value")
-op.add_option("-b", "--beta", type=float, default=0.003906, help="beta value")
+op.add_option("-b", "--beta", type=float, default=0.0, help="beta value")
 op.add_option("-l", "--lambda_", type=float, default=0.0, help="lambda value")
 op.add_option("-r", "--repetitions", type=int, default=2, help="repetitions")
 op.add_option("-s", "--reseed", type=int, default=0, help="if >0 reseed numpy for each repetition")
@@ -29,9 +29,10 @@ print("TESTING " + df.upper() +" with model " + str(opts.model))
 print("Alpha: ", opts.alpha, " Beta: ", opts.beta, " Lambda :", opts.lambda_)
 
 header = "test"+df
-ofile = "\"./Results/ResultsTraning/SSBVAE_" + df.upper() + "-" + str(opts.nbits) + "BITS-" + str(opts.alpha) + "ALPHA-" + str(
-        opts.beta) + "BETA-" + str(opts.lambda_) + "LAMBDA.csv\""
-tail = "(model=" + str(opts.model) + ", ps=" + str(opts.ps) + ", addvalidation=" + str(opts.addvalidation) + ", alpha=" + str(opts.alpha) + ", beta=" + str(opts.beta) + \
-       ", lambda_=" + str(opts.lambda_) + ", repetitions=" + str(opts.repetitions) + ", nbits=" + str(nbits) + ",ofilename=" + ofile + ")"
+ofile = "\"./Results/ResultsTraning/SSBVAE_"+df.upper()+"-"+str(opts.nbits)+"BITS-"+str(opts.alpha)+"ALPHA-"+\
+        str(opts.beta)+"BETA-"+str(opts.lambda_)+"LAMBDA.csv\""
+tail = "(model="+str(opts.model)+",ps="+str(opts.ps)+", addvalidation="+str(opts.addvalidation)+",alpha="+str(opts.alpha)+\
+       ",beta="+str(opts.beta)+",lambda_="+str(opts.lambda_)+",repetitions="+str(opts.repetitions)+",nbits="+str(nbits)+\
+       ",ofilename="+ofile+")"
 func = header + tail
 eval(func)

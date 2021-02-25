@@ -593,7 +593,7 @@ def obtain_parameters(p,df, nbits):
     x = x.iloc[start:end]
 
     #Select the level and create float64 lists of parameters to work on
-    y = x[x['level'] ==  float(p)]
+    y = x[x['level'] ==  str(p)]
     alpha = y['alpha'].to_numpy()
     beta = y['beta'].to_numpy()
     lambda_ = y['lambda'].to_numpy()
