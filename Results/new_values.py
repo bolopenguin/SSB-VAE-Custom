@@ -10,11 +10,13 @@ def load_dataset():
     dataset = pd.read_csv("ResultsPostProcessing/table_" + str(nbits) + "bits.csv")
     return dataset
 
+
+
 nbits = 16
 dataset_names = ["CIFAR", "20News", "TMC", "Snippets"]
 supervised_levels = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 cols = ["alpha", "beta", "lambda"]
-
+algortihm = "SSB_VAE"
 data = load_dataset()
 
 df_20News = data[data["dataset"] == "20News"]
@@ -26,6 +28,10 @@ n_rows = 3
 
 # loop over all the levels and datasets
 for name in dataset_names:
+
+    # I create a table to add to the existing one containing the new values to use
+    tableNewValues = pd.DataFrame(columns=['level', 'algorithm', 'alpha', 'beta', 'lambda', 'p@100'])
+
     for level in supervised_levels:
         print("------------------------------------------------------")
         print(name + " @Level" + str(level))
@@ -33,13 +39,13 @@ for name in dataset_names:
         df = eval("df_" + name + "[df_" + name + "[\"level\"]==" + str(level) + "]")
         df = df.drop("level", 1)
 
-        #I create lists without repetitions of the parameters used for training/testing
+        # I create lists without repetitions of the parameters used for training/testing
         alphaValues = np.sort(df['alpha'].unique())
         betaValues = np.sort(df['beta'].unique())
         lambdaValues = np.sort(df['lambda'].unique())
 
         # Took the first n_rows values in order of accuracy
-        df_top = df[df['p@100'].isin(list(df['p@100'].nlargest(n_rows)))].sort_values(by="p@100", ascending=False).reset_index(drop=True)
+        df_top = df[df['p@100'].isin(list(df['p@100'].nlargest(n_rows)))].sort_values(by="p@100",ascending=False).reset_index(drop=True)
         df_bot = df[df['p@100'].isin(list(df['p@100'].nsmallest(n_rows)))].sort_values(by="p@100",ascending=True).reset_index(drop=True)
 
         print("Best Values: ")
@@ -69,13 +75,16 @@ for name in dataset_names:
         top_values = np.asarray(top_values)
         bot_values = np.asarray(bot_values)
         diff = top_values - bot_values
+
         for i in range(len(cols)):
-            if diff[i] > 0: print(cols[i] + " gives the best results when it is higher ")
-            elif diff[i] < 0: print(cols[i] + " gives the best results when it is lower")
-            else:  print(cols[i] + " does not influence in the results ")
+            if diff[i] > 0:
+                print(cols[i] + " gives the best results when it is higher ")
+            elif diff[i] < 0:
+                print(cols[i] + " gives the best results when it is lower")
+            else:
+                print(cols[i] + " does not influence in the results ")
         print()
 
-        #TODO: check per controllare che non si ripetino i valori
         indexAlpha, = np.where(alphaValues == top_values[0])
         indexBeta, = np.where(betaValues == top_values[1])
         indexLambda, = np.where(lambdaValues == top_values[2])
@@ -83,7 +92,7 @@ for name in dataset_names:
         if indexAlpha == 0:
             operatorAlpha = "low"
             print("The best Alpha value is " + str(top_values[0]) + ", i.e. the lowest among those available")
-            new_alpha = [top_values[0], top_values[0]/10, top_values[0]/100]
+            new_alpha = [top_values[0], top_values[0] / 10, top_values[0] / 100]
         elif indexAlpha == 1:
             operatorBeta = "medium"
             print("The best Alpha value is " + str(top_values[0]) + ", that is the average value among those available")
@@ -96,31 +105,53 @@ for name in dataset_names:
         if indexBeta == 0:
             operatorBeta = "low"
             print("The best Beta value is " + str(top_values[1]) + ", i.e. the lowest among those available")
-            new_beta = [top_values[1], top_values[1]/10, top_values[1]/100]
+            new_beta = [top_values[1], top_values[1] / 10, top_values[1] / 100]
         elif indexBeta == 1:
             operatorBeta = "medium"
             print("The best Beta value is " + str(top_values[1]) + ", that is the average value among those available")
-            new_beta = [top_values[1], top_values[1]/10, top_values[1]*10]
+            new_beta = [top_values[1], top_values[1] / 10, top_values[1] * 10]
         else:
             operatorLambda = "high"
             print("The best Beta value is " + str(top_values[1]) + ", i.e. the highest among those available")
-            new_beta = [top_values[1], top_values[1]*10, top_values[1]*100]
+            new_beta = [top_values[1], top_values[1] * 10, top_values[1] * 100]
 
         if indexLambda == 0:
             operatorLambda = "low"
             print("The best Lambda value is " + str(top_values[2]) + ", i.e. the lowest among those available")
-            new_lambda = [top_values[2], top_values[2]/2, top_values[2]/4]
+            new_lambda = [top_values[2], top_values[2] / 2, top_values[2] / 4]
         elif indexLambda == 1:
             operatorLambda = "medium"
-            print("The best Lambda value is " + str(top_values[2]) + ", that is the average value among those available")
-            new_lambda = [top_values[2], top_values[2]/2, top_values[2]*2]
+            print(
+                "The best Lambda value is " + str(top_values[2]) + ", that is the average value among those available")
+            new_lambda = [top_values[2], top_values[2] / 2, top_values[2] * 2]
         else:
             operatorLambda = "high"
             print("The best Lambda value is " + str(top_values[2]) + ", i.e. the highest among those available")
             new_lambda = [top_values[2], top_values[2] * 2, top_values[2] * 4]
 
+        # I find the accuracy of the previous training and save it for future comparisons
+        prec = df.loc[
+            (df['alpha'] == top_values[0]) & (df['beta'] == top_values[1]) & (df['lambda'] == top_values[2]), [
+                'p@100']].values
+        print("\n p@100 last training of best alpha, beta, lambda: ", float(prec))
+        precision_last = [float(prec), 'Nan', 'Nan']
+
         print()
-        print("New alpha values: \n", new_alpha)
-        print("New beta values: \n", new_beta)
-        print("New lambda values: \n", new_lambda)
+        print("New alpha values:\n", new_alpha)
+        print("New beta values:\n", new_beta)
+        print("New lambda values:\n", new_lambda)
+        #print("Precision Values:\n", precision_last)
+
+
+        # I add the new values to the corresponding table
+        for ind in range(len(cols)):
+            newRow = {'level': level, 'algorithm': algortihm, 'alpha': new_alpha[ind], 'beta': new_beta[ind],
+                      'lambda': new_lambda[ind], 'p@100': precision_last[ind]}
+            tableNewValues = tableNewValues.append(newRow, ignore_index=True)
+
+    uri = '../Hyperparameters/' + name.lower() + "_" + str(nbits) + "bits_hyperparameters.csv"
+    with open(uri, 'a') as f:
+        tableNewValues.to_csv(uri, mode='a', index=False, header=True)
+
+
 

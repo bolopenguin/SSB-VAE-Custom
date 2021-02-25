@@ -33,8 +33,8 @@ for alpha in alphaVal:
             print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
 
             ofile="\"./Results/ResultsTraning/SSBVAE_"+df.upper()+"-"+str(nbits)+"BITS-"+str(alpha)+"ALPHA-"+str(beta)+"BETA-"+str(lambda_)+"LAMBDA.csv\""
-            tail = "(model="+str(opts.model)+", ps=ps, addvalidation=1, alpha="+str(alpha)+", beta="+str(beta)+", lambda_="+str(lambda_)+\
-                   ", repetitions=2, nbits="+str(nbits)+",ofilename="+ofile+")"
+            tail = "(model="+str(opts.model)+", ps="+str(opts.ps)+", addvalidation="+str(opts.addvalidation)+", alpha="+str(alpha)+", beta="+str(beta)+\
+                   ", lambda_="+str(lambda_)+", repetitions="+str(opts.repetitions)+", nbits="+str(nbits)+",ofilename="+ofile+")"
             func = header + tail
             eval(func)
 

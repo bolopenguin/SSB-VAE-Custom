@@ -31,7 +31,7 @@ print("Alpha: ", opts.alpha, " Beta: ", opts.beta, " Lambda :", opts.lambda_)
 header = "test"+df
 ofile = "\"./Results/ResultsTraning/SSBVAE_" + df.upper() + "-" + str(opts.nbits) + "BITS-" + str(opts.alpha) + "ALPHA-" + str(
         opts.beta) + "BETA-" + str(opts.lambda_) + "LAMBDA.csv\""
-tail = "(model="+str(opts.model)+", ps=ps, addvalidation=1, alpha=" + str(opts.alpha) + ", beta=" + str(opts.beta) + ", lambda_=" + str(opts.lambda_) + \
-       ", repetitions=2, nbits=" + str(opts.nbits) + ",ofilename=" + ofile + ")"
+tail = "(model=" + str(opts.model) + ", ps=" + str(opts.ps) + ", addvalidation=" + str(opts.addvalidation) + ", alpha=" + str(alpha) + ", beta=" + str(beta) + \
+       ", lambda_=" + str(lambda_) + ", repetitions=" + str(opts.repetitions) + ", nbits=" + str(nbits) + ",ofilename=" + ofile + ")"
 func = header + tail
 eval(func)
