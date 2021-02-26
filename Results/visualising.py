@@ -4,8 +4,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-nbits = 16
+op = OptionParser()
+op.add_option("-c", "--nbits", type=int, default=16, help="number of bits")
+(opts, args) = op.parse_args()
 
+nbits = opts.nbits
 def load_dataset():
     dataset = pd.read_csv("ResultsPostProcessing/table_"+str(nbits)+"bits.csv")
     return dataset
