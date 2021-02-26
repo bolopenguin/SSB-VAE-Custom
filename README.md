@@ -110,3 +110,9 @@ Important note: we extended the work contained in this [*directory*](https://git
  S. Chaidaroon and Y. Fang. “Variational deep semantic hashing for text documents”. SIGIR. 2017, pp. 75–84. 
 
 <a id="1">[2]</a>  S. Z. Dadaneh et al. “Pairwise Supervised Hashing with Bernoulli Variational Auto-Encoder and Self-Control Gradient Estimator”. Proc. UAI. 2020
+
+# Authors
+
+The changes made to the original directory are made by:
+- [*Damiano Bolognini*](https://github.com/bolopenguin)
+- [*Giulio Todde*](https://github.com/tox16)
