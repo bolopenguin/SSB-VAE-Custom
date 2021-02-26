@@ -97,10 +97,9 @@ python visualising.py -c 16
 # Observations
 
 Performing the grid search we can see that the best results are achieved by low values of alpha and high values of beta, lambda instead doesn't show a particular influence 
-across the tests but we had chosen similar values, so pheraps this measure could be more influent in future training in which the values are very different from ones we tested.
+across the tests but we had chosen similar values, so perhaps this measure could be more influent in future training in which the values are very different from ones we tested.
 
-The new values are generated in order to explore the space around the best hyper-parameters, in this way after many trainings we can achieve a better and better result for each
-dataset and level of supervision.
+The new values are generated in order to explore the space around the best hyper-parameters (i.e. the highest precision), in this way after many trainings we can achieve a better and better result for each dataset and level of supervision.
 
 Important note: we extended the work contained in this [*directory*](https://github.com/amacaluso/SSB-VAE), therefore we focused only on the SSB-VAE method, and the results achieved refer all to this mode.
 
