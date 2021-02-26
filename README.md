@@ -14,6 +14,8 @@ fully-supervised settings but improves significantly the results when labelled d
 Then we can search for the best hyper-parameters through a grid search which tries different set of values 
 and generates new values based on the precision achieved on the training.
 
+Note: this is an extension of the work contained in this [*directory*](https://github.com/amacaluso/SSB-VAE).
+
 # Requirements
 
 Python 3.7
@@ -60,10 +62,10 @@ dataframe.
 
 The script new_values.py generates the new values for the hyper-parameters to test in the following runs of the code.
 
-The script visualising.py allows to build graph over the results achieved to study the precision of the different hyper-parameters set.
+The script visualising.py allows to build graphs over the results achieved in order to study the precision of the different hyper-parameter sets.
 
 The script post_processing.py allows to collect all the results provided by the test_values.py and test_values_all.py files and it computes the
- tables as reported in the paper.
+ tables summarizing the results achieved.
 
 ## Guide to the usage
 
