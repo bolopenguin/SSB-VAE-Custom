@@ -111,8 +111,8 @@ Important note: we extended the work contained in this [*directory*](https://git
 
 <a id="1">[2]</a>  S. Z. Dadaneh et al. “Pairwise Supervised Hashing with Bernoulli Variational Auto-Encoder and Self-Control Gradient Estimator”. Proc. UAI. 2020
 
-# Authors
+# Collaborators
 
-The changes made to the original directory are made by:
+The changes to the original directory have been made by:
 - [*Damiano Bolognini*](https://github.com/bolopenguin)
 - [*Giulio Todde*](https://github.com/tox16)
