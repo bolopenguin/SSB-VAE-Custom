@@ -94,7 +94,7 @@ To generate the graphs stored in the directory Images run the following script:
 python visualising.py -c 16
 ```
 
-#Observations
+# Observations
 
 Performing the grid search we can see that the best results are achieved by low values of alpha and high values of beta, lambda instead doesn't show a particular influence 
 across the tests but we had chosen similar values, so pheraps this measure could be more influent in future training in which the values are very different from ones we tested.
