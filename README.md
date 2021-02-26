@@ -113,6 +113,6 @@ Important note: we extended the work contained in this [*directory*](https://git
 
 # Collaborators
 
-The changes to the original directory have been made by:
+The changes to the original [*directory*](https://github.com/amacaluso/SSB-VAE) have been made by:
 - [*Damiano Bolognini*](https://github.com/bolopenguin)
 - [*Giulio Todde*](https://github.com/tox16)
