@@ -76,10 +76,13 @@ The output will be inside the csv: *./Results/ResultsTraning/SSBVAE_SNIPPETS-16B
 To search for the best hyper-parameters run the following scripts in order:
 ``` 
 python test_values_all.py -M 3 -r 2 -s 0 -v 1 -c 16 -d snippets
+python test_values_all.py -M 3 -r 2 -s 0 -v 1 -c 16 -d 20news
+python test_values_all.py -M 3 -r 2 -s 0 -v 1 -c 16 -d tmc
+python test_values_all.py -M 3 -r 2 -s 0 -v 1 -c 16 -d cifar
+
 cd Results
 python post_processing.py
 python new_values.py
-cd ../
 ```
 And then repeat again in order to try the new values (which will lead to a better precision).
 The results of the test_values_all.py are stored in the csv inside the folder Results/ResultsTraining
@@ -90,6 +93,16 @@ To generate the graphs stored in the directory Images run the following script:
 ``` 
 python visualising.py -c 16
 ```
+
+#Observations
+
+Performing the grid search we can see that the best results are achieved by low values of alpha and high values of beta, lambda instead doesn't show a particular influence 
+across the tests but we had chosen similar values, so pheraps this measure could be more influent in future training in which the values are very different from ones we tested.
+
+The new values are generated in order to explore the space around the best hyper-parameters, in this way after many trainings we can achieve a better and better result for each
+dataset and level of supervision.
+
+Important note: we extended the work contained in this [*directory*](https://github.com/amacaluso/SSB-VAE), therefore we focused only on the SSB-VAE method, and the results achieved refer all to this mode.
 
 # References
 <a id="1">[1]</a> 
