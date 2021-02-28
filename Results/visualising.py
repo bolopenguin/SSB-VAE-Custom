@@ -3,14 +3,16 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from optparse import OptionParser
 
 op = OptionParser()
 op.add_option("-c", "--nbits", type=int, default=16, help="number of bits")
-(opts, args) = op.parse_args()
+op.add_option("-t", "--table", type="string", help="table from which generates new values")
 
+(opts, args) = op.parse_args()
 nbits = opts.nbits
 def load_dataset():
-    dataset = pd.read_csv("ResultsPostProcessing/table_"+str(nbits)+"bits.csv")
+    dataset = pd.read_csv("ResultsPostProcessing/"+opts.table)
     return dataset
 
 data = load_dataset()

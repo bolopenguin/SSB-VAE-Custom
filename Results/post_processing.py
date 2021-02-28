@@ -1,8 +1,8 @@
 import os
 import pandas as pd
 import numpy as np
+from datetime import datetime
 
-measure = 'p@100'
 nbits = 16
 folder = "./ResultsTraning"
 ext = '.csv'
@@ -13,7 +13,7 @@ def load_data():
 
     for root,dirs,files in os.walk(directory):
         for file in files:
-            if file.endswith(ext):
+            if file.endswith(ext) and (str(nbits) +"BITS") in os.path.join(root, file):
                 dataset = pd.read_csv(os.path.join(root, file), header=None)
                 data=pd.concat([data, dataset])
 
@@ -22,7 +22,7 @@ def load_data():
     return data
 
 data = load_data()
-cols = ['dataset', 'algorithm', 'level','alpha','beta' ,'lambda', measure]
+cols = ['dataset', 'algorithm', 'level','alpha','beta' ,'lambda', 'p@100']
 
 data = data[cols]
 data.algorithm.unique()
@@ -30,5 +30,5 @@ data.algorithm.unique()
 data=data.sort_values(by=['algorithm', 'dataset', 'level'])
 data_avg = data.groupby(['dataset', 'algorithm', 'level','alpha','beta' ,'lambda']).mean()
 
-
-data_avg.to_csv('ResultsPostProcessing/table_' + str(nbits) + 'bits.csv', header =True)
+date = datetime.today().strftime('%d_%m_%y')
+data_avg.to_csv('ResultsPostProcessing/table_' + str(nbits) + 'bits_' + date + ".csv", header =True)
