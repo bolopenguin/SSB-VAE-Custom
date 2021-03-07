@@ -19,6 +19,8 @@ op.add_option("-d", "--ds", type="string", default="20news", help="Dataset to tr
 nbits = opts.nbits
 df = str(opts.ds).lower()
 supervised_levels = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+model_dict = {1:"VDHS-S", 2: "PHS-GS", 3:"SSBVAE" }
+model = model_dict.get(opts.model)
 
 header = "test"+df
 
@@ -30,8 +32,9 @@ for level in supervised_levels:
                 print("TESTING " + df.upper() + " @Level" + str(level))
                 print("Alpha: ", alpha, " Beta: ", beta, " Lambda :", lambda_)
 
-                ofile = "\"./Results/ResultsTraning/SSBVAE_"+df.upper()+"-"+str(nbits)+"BITS-"+\
+                ofile = "\"./Results/ResultsTraning/"+ model +"_"+df.upper()+"-"+str(nbits)+"BITS-"+\
                         str(alpha)+"ALPHA-"+str(beta)+"BETA-"+str(lambda_)+"LAMBDA.csv\""
+
                 tail = "(model="+str(opts.model)+",ps="+str(level)+",addvalidation="+str(opts.addvalidation)+\
                        ",alpha="+str(alpha)+",beta="+str(beta)+",lambda_="+str(lambda_)+",repetitions="+str(opts.repetitions)+",nbits="+\
                        str(nbits)+",ofilename="+ofile+")"

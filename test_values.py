@@ -24,13 +24,16 @@ op.add_option("-d", "--ds", type="string", default="20news", help="Dataset to tr
 ps = float(opts.ps)
 nbits = opts.nbits
 df = str(opts.ds).lower()
+model_dict = {1:"VDHS-S", 2: "PHS-GS", 3:"SSBVAE" }
+model = model_dict.get(opts.model)
 
 print("TESTING " + df.upper() +" with model " + str(opts.model))
 print("Alpha: ", opts.alpha, " Beta: ", opts.beta, " Lambda :", opts.lambda_)
 
 header = "test"+df
-ofile = "\"./Results/ResultsTraning/SSBVAE_"+df.upper()+"-"+str(opts.nbits)+"BITS-"+str(opts.alpha)+"ALPHA-"+\
-        str(opts.beta)+"BETA-"+str(opts.lambda_)+"LAMBDA.csv\""
+ofile = "\"./Results/ResultsTraning/" + model + "_" + df.upper() + "-" + str(nbits) + "BITS-" + \
+        str(opts.alpha) + "ALPHA-" + str(opts.beta) + "BETA-" + str(opts.lambda_) + "LAMBDA.csv\""
+print(ofile)
 tail = "(model="+str(opts.model)+",ps="+str(opts.ps)+", addvalidation="+str(opts.addvalidation)+",alpha="+str(opts.alpha)+\
        ",beta="+str(opts.beta)+",lambda_="+str(opts.lambda_)+",repetitions="+str(opts.repetitions)+",nbits="+str(nbits)+\
        ",ofilename="+ofile+")"

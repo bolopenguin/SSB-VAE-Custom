@@ -2,8 +2,12 @@ import os
 import pandas as pd
 import numpy as np
 from datetime import datetime
+from optparse import OptionParser
 
-nbits = 16
+op = OptionParser()
+op.add_option("-c", "--nbits", type=int, default=16, help="number of bits")
+(opts, args) = op.parse_args()
+nbits = opts.nbits
 folder = "./ResultsTraning"
 ext = '.csv'
 directory = os.path.join(folder)
